@@ -18,7 +18,7 @@ filetype plugin indent on
 
 " options for YouCompleteMe
 " use global ycm config, no confirmation
-let g:ycm_global_ycm_extra_conf = '/home/zed0/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '/home/zed0/.vim/ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 1
 " don't complete inside strings or comments
 let g:ycm_complete_in_strings = 0
