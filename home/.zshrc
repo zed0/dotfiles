@@ -40,8 +40,6 @@ ZSH_THEME="zed0"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-ZSH_TMUX_AUTOSTART=true
-ZSH_TMUX_AUTOQUIT=false
 plugins=(git gem screen svn tmux)
 
 source $ZSH/oh-my-zsh.sh
