@@ -98,6 +98,9 @@ endif
 
 " map :W to :w because I'm an idiot
 command W w
+command Q q!
+" Use w!! to sudo for a file if you forget to sudo vim:
+cmap w!! %!sudo tee > /dev/null %
 " <leader>g posts the current selection to a private gist.  Requires gist - https://github.com/defunkt/gist
 vnoremap <leader>g :w !gist -p -t @% <cr>
 " H and L go to begining and end of line

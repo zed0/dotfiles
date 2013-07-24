@@ -52,6 +52,7 @@ zstyle -e ':completion::*:*:*:hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~
 
 # don't auto correct lua to la:
 alias lua='nocorrect lua '
+alias tmux='tmux -2'
 alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
 
 homeshick --quiet refresh #remind me if I haven't updated my dotfiles in a while.
