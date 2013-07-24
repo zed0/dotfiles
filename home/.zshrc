@@ -40,13 +40,12 @@ ZSH_THEME="zed0"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git gem screen svn tmux)
+plugins=(git screen svn tmux)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/home/zed0/bin:$PATH:/usr/local/bin:/usr/bin:/bin:/usr/games:/home/zed0/.rvm/bin
-export GEM_HOME=/home/zed0/gems
+export PATH=/home/zed0/bin:/home/zed0/.gem/ruby/1.8/bin:$PATH:/usr/local/bin:/usr/bin:/bin:/usr/games
 
 # ssh autocomplete:
 zstyle -e ':completion::*:*:*:hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
@@ -54,3 +53,5 @@ zstyle -e ':completion::*:*:*:hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~
 # don't auto correct lua to la:
 alias lua='nocorrect lua '
 alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
+
+homeshick --quiet refresh #remind me if I haven't updated my dotfiles in a while.
