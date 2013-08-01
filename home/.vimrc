@@ -107,8 +107,12 @@ vnoremap <leader>g :w !gist -p -t @% <cr>
 noremap H 0
 noremap L g$
 
+" Make scrollwheel work in a normal fashion:
+map <ScrollWheelUp> <C-Y>
+map <ScrollWheelDown> <C-E>
+
 nnoremap <leader>l :nohlsearch <cr>
 
 " set folding type:
-set foldmethod=indent
+set foldmethod=syntax
 set foldlevel=200
