@@ -28,8 +28,19 @@ let g:ycm_allow_changing_updatetime = 0
 set updatetime=500
 let g:ycm_autoclose_preview_window_after_completion = 1
 
-" Map F2 to toggle line numbers
-nmap <F2> :set nu!<cr>
+" F2 rotates between no line numbers, normal line numbers and relative line
+" numbers:
+function! NumberToggle()
+	if(&number == 0 && &relativenumber == 0)
+		set number
+	elseif(&number == 1 && &relativenumber == 0)
+		set relativenumber
+	elseif(&number == 1 && &relativenumber == 1)
+		set number!
+		set relativenumber!
+	endif
+endfunc
+nnoremap <F2> :call NumberToggle()<cr>
 
 " Map F3 to shortcut to the Gundo feature
 nnoremap <F3> :GundoToggle<CR>
