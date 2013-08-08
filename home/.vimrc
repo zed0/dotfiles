@@ -114,9 +114,12 @@ command Q q
 cmap w!! %!sudo tee > /dev/null %
 " <leader>g posts the current selection to a private gist.  Requires gist - https://github.com/defunkt/gist
 vnoremap <leader>g :w !gist -p -t @% <cr>
+" :Curl fetches a url to a scratch buffer
+command -nargs=* Curl botright new | setlocal buftype=nofile | read! curl <q-args> 2>/dev/null
 " H and L go to begining and end of line
 noremap H 0
 noremap L g$
+
 
 " Make scrollwheel work in a normal fashion:
 map <ScrollWheelUp> <C-Y>
