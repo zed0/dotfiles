@@ -2,6 +2,8 @@
 
 " Use Vim defaults (much better!)
 set nocompatible
+" Use 256 colours (all modern terminals support this)
+set t_Co=256
 
 " Vundle
 filetype off
@@ -14,7 +16,14 @@ Bundle 'Syntastic'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'sjl/gundo.vim'
 Bundle 'scrooloose/nerdtree'
+Bundle 'bling/vim-airline'
+Bundle 'tpope/vim-fugitive'
+Bundle 'bling/vim-bufferline'
 filetype plugin indent on
+
+" Enable syntax highlighting if available:
+syntax on
+colorscheme elflord
 
 " options for YouCompleteMe
 " use global ycm config, no confirmation
@@ -23,10 +32,36 @@ let g:ycm_confirm_extra_conf = 1
 " don't complete inside strings or comments
 let g:ycm_complete_in_strings = 0
 let g:ycm_complete_in_comment = 0
-" check for errors every 500ms
+" check for errors every 2000ms
 let g:ycm_allow_changing_updatetime = 0
-set updatetime=500
+set updatetime=2000
+
 let g:ycm_autoclose_preview_window_after_completion = 1
+
+" options for airline
+set laststatus=2
+let g:airline_enable_syntastic = 0
+let g:airline_detect_whitespace = 0
+let g:airline_theme='badwolf'
+let g:airline_left_sep='â–º'
+let g:airline_right_sep='â—„'
+" get the colours working like I want:
+set fillchars=vert:\ 
+autocmd VimEnter * highlight VertSplit cterm=NONE ctermbg=235
+autocmd VimEnter * highlight StatusLine cterm=NONE ctermbg=235
+autocmd VimEnter * highlight Error term=NONE ctermfg=124 ctermbg=196
+autocmd VimEnter * highlight todo term=NONE ctermfg=202 ctermbg=214
+autocmd VimEnter * highlight clear AlBl_active
+autocmd VimEnter * highlight link AlBl_active Al6
+autocmd VimEnter * highlight clear AlBl_inactive
+autocmd VimEnter * highlight link AlBl_inactive Al5
+
+" options for bufferline
+let g:bufferline_echo = 0
+let g:bufferline_rotate = 3
+
+" Stop gundo refocusing main window
+let g:gundo_focus_main_buffer = 0
 
 " F2 rotates between no line numbers, normal line numbers and relative line
 " numbers:
@@ -44,18 +79,12 @@ nnoremap <F2> :call NumberToggle()<cr>
 
 " Map F3 to shortcut to the Gundo feature
 nnoremap <F3> :GundoToggle<CR>
-" Stop gundo refocusing main window
-let g:gundo_focus_main_buffer = 0
 
 " Map F4 to shortcut to the NERDTree
 nnoremap <F4> :NERDTree<CR>
 
-" Enable syntax highlighting if available:
-if has("syntax")
-	syntax on
-	colorscheme elflord
-endif
-
+" don't force a save when moving to another buffer
+set hidden
 " allow backspacing over everything in insert mode
 set backspace=2
 " Now we set some defaults for the editor 
@@ -78,8 +107,6 @@ set ignorecase
 set incsearch
 " Highlight matches
 set hlsearch
-" Automatically save before commands like :next and :make
-set autowrite
 " display search
 set is
 " don't highlight previous search
@@ -87,7 +114,6 @@ set linebreak
 " broken line character
 set showbreak=>>
 " show tabs and trailing spaces
-"set listchars=tab:»­,trail:·
 set listchars=tab:->,trail:-
 " show unprintable characters
 set list
@@ -102,11 +128,6 @@ let mapleader=","
 map <MouseDown> <C-U>
 map <MouseUp> <C-E>
 
-" Slightly nicer colours if xterm colours get used:
-if &term =~ "screen"
-	set term=xterm
-endif
-
 " map :W to :w because I'm an idiot
 command W w
 command Q q
@@ -119,8 +140,6 @@ command -nargs=* Curl botright new | setlocal buftype=nofile | read! curl <q-arg
 " H and L go to begining and end of line
 noremap H 0
 noremap L g$
-
-
 " Make scrollwheel work in a normal fashion:
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
