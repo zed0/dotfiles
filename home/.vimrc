@@ -3,6 +3,7 @@
 " Use Vim defaults (much better!)
 set nocompatible
 " Use 256 colours (all modern terminals support this)
+set term=xterm
 set t_Co=256
 
 " Vundle
