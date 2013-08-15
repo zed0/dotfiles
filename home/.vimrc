@@ -29,7 +29,7 @@ colorscheme elflord
 " options for YouCompleteMe
 " use global ycm config, no confirmation
 let g:ycm_global_ycm_extra_conf = '/home/zed0/.vim/ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 1
+let g:ycm_confirm_extra_conf = 0
 " don't complete inside strings or comments
 let g:ycm_complete_in_strings = 0
 let g:ycm_complete_in_comment = 0
@@ -46,12 +46,18 @@ let g:airline_detect_whitespace = 0
 let g:airline_theme='badwolf'
 let g:airline_left_sep='►'
 let g:airline_right_sep='◄'
-" get the colours working like I want:
+" get the colours working like I want (done with autocmd because otherwise
+" something overwrites it):
+" Should really use an after file
 set fillchars=vert:\ 
 autocmd VimEnter * highlight VertSplit cterm=NONE ctermbg=235
 autocmd VimEnter * highlight StatusLine cterm=NONE ctermbg=235
+autocmd VimEnter * highlight StatusLineNC cterm=NONE ctermbg=235 ctermfg=235
 autocmd VimEnter * highlight Error term=NONE ctermfg=124 ctermbg=196
 autocmd VimEnter * highlight todo term=NONE ctermfg=202 ctermbg=214
+autocmd VimEnter * highlight Search ctermbg=100 ctermfg=black
+autocmd VimEnter * highlight Pmenu ctermbg=DarkMagenta ctermfg=black
+autocmd VimEnter * highlight PmenuSel ctermbg=DarkMagenta ctermfg=gray
 autocmd VimEnter * highlight clear AlBl_active
 autocmd VimEnter * highlight link AlBl_active Al6
 autocmd VimEnter * highlight clear AlBl_inactive
@@ -61,11 +67,13 @@ autocmd VimEnter * highlight link AlBl_inactive Al5
 let g:bufferline_echo = 0
 let g:bufferline_rotate = 3
 
-" Stop gundo refocusing main window
+" options for gundo
 let g:gundo_focus_main_buffer = 0
 
-" F2 rotates between no line numbers, normal line numbers and relative line
-" numbers:
+" options for NERDTree
+let NERDTreeShowHidden=1
+
+" rotates between no line numbers, normal line numbers and relative line numbers:
 function! NumberToggle()
 	if(&number == 0 && &relativenumber == 0)
 		set number
@@ -76,13 +84,11 @@ function! NumberToggle()
 		set relativenumber!
 	endif
 endfunc
+
+" Function key mappings:
 nnoremap <F2> :call NumberToggle()<cr>
-
-" Map F3 to shortcut to the Gundo feature
 nnoremap <F3> :GundoToggle<CR>
-
-" Map F4 to shortcut to the NERDTree
-nnoremap <F4> :NERDTree<CR>
+nnoremap <F4> :NERDTreeToggle<CR>
 
 " don't force a save when moving to another buffer
 set hidden
@@ -118,6 +124,11 @@ set showbreak=>>
 set listchars=tab:->,trail:-
 " show unprintable characters
 set list
+
+" more bash-like filename completion:
+set wildmenu
+set wildmode=longest,list
+set wildignorecase
 
 set tabstop=4
 set shiftwidth=4
