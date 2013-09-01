@@ -132,7 +132,9 @@ set list
 " more bash-like filename completion:
 set wildmenu
 set wildmode=longest,list
-set wildignorecase
+if (has('wildignorecase'))
+	set wildignorecase
+endif
 
 set tabstop=4
 set shiftwidth=4
