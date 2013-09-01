@@ -75,13 +75,17 @@ let NERDTreeShowHidden=1
 
 " rotates between no line numbers, normal line numbers and relative line numbers:
 function! NumberToggle()
-	if(&number == 0 && &relativenumber == 0)
-		set number
-	elseif(&number == 1 && &relativenumber == 0)
-		set relativenumber
-	elseif(&number == 1 && &relativenumber == 1)
-		set number!
-		set relativenumber!
+	if (has('relativenumber'))
+		if(&number == 0 && &relativenumber == 0)
+			set number
+		elseif(&number == 1 && &relativenumber == 0)
+			set relativenumber
+		elseif(&number == 1 && &relativenumber == 1)
+			set number!
+			set relativenumber!
+		endif
+	else
+		set nu!
 	endif
 endfunc
 
