@@ -80,8 +80,10 @@ function! NumberToggle()
 			set number
 		elseif(&number == 1 && &relativenumber == 0)
 			set relativenumber
-		elseif(&number == 1 && &relativenumber == 1)
-			set number!
+		elseif(&relativenumber == 1)
+			if(&number == 1)
+				set number!
+			endif
 			set relativenumber!
 		endif
 	else
