@@ -126,8 +126,9 @@ set is
 set linebreak
 " broken line character
 set showbreak=>>
-" show tabs and trailing spaces
+" show tabs and trailing spaces and slightly darker than default colour
 set listchars=tab:->,trail:-
+autocmd VimEnter * highlight SpecialKeys ctermfg=30
 " show unprintable characters
 set list
 
