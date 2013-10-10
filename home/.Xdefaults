@@ -1,0 +1,24 @@
+XTerm*reverseVideo: true
+XTerm*termName: xterm-256color
+
+#rxvt defaults:
+URxvt*termName: rxvt-unicode
+URxvt*reverseVideo: true
+URxvt*scrollBar: false
+URxvt*transparent: true
+URxvt*shading: 25
+#links:
+URxvt*perl-ext-common: default,matcher
+URxvt*url-launcher: /usr/bin/chromium
+URxvt*matcher.button: 1
+#Default font (same as fixed)
+URxvt*font: 6x13
+#Bind C-0, C-+ and C-= to activate medium, big and small font size respectively.
+URxvt*keysym.C-0: command:\033]710;6x13\007
+URxvt*keysym.C-minus: command:\033]710;5x8\007
+URxvt*keysym.C-equal: command:\033]710;9x15\007
+#home and end
+URxvt*keysym.Home: \033[1~
+URxvt*keysym.End: \033[4~
+#bell:
+URxvt*urgentOnBell: true
