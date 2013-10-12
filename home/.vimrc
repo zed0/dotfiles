@@ -160,7 +160,7 @@ vnoremap <leader>g :w !gist -p -t @% <cr>
 command -nargs=* Curl botright new | setlocal buftype=nofile | read! curl <q-args> 2>/dev/null
 " H and L go to begining and end of line
 noremap H 0
-noremap L g$
+noremap L $
 " Make scrollwheel work in a normal fashion:
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
