@@ -20,6 +20,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-fugitive'
 Bundle 'bling/vim-bufferline'
+Bundle 'Raimondi/delimitMate'
 filetype plugin indent on
 
 " Enable syntax highlighting if available:
@@ -36,7 +37,6 @@ let g:ycm_complete_in_comment = 0
 " check for errors every 2000ms
 let g:ycm_allow_changing_updatetime = 0
 set updatetime=2000
-
 let g:ycm_autoclose_preview_window_after_completion = 1
 
 " options for airline
@@ -71,7 +71,12 @@ let g:bufferline_rotate = 3
 let g:gundo_focus_main_buffer = 0
 
 " options for NERDTree
-let NERDTreeShowHidden=1
+let NERDTreeShowHidden = 1
+
+" opitons for delimitMate
+let delimitMate_expand_cr = 1
+let delimitMate_matchpairs = "(:),[:],{:}"
+let delimitMate_quotes = ""
 
 " rotates between no line numbers, normal line numbers and relative line numbers:
 function! NumberToggle()
