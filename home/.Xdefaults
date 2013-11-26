@@ -6,7 +6,7 @@ URxvt*termName: rxvt-unicode
 URxvt*reverseVideo: true
 URxvt*scrollBar: false
 URxvt*transparent: true
-URxvt*shading: 25
+URxvt*shading: 5
 #links:
 URxvt*perl-ext-common: default,matcher
 URxvt*url-launcher: /usr/bin/chromium
