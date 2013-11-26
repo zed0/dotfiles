@@ -1,8 +1,9 @@
-XTerm*reverseVideo: true
-XTerm*termName: xterm-256color
+xterm*reverseVideo: true
+xterm*termName: xterm-256color
+xterm*scrollBar: false
 
-#rxvt defaults:
-URxvt*termName: rxvt-unicode
+!rxvt defaults:
+!URxvt*termName: rxvt-unicode
 URxvt*reverseVideo: true
 URxvt*scrollBar: false
 URxvt*transparent: true
@@ -11,14 +12,17 @@ URxvt*shading: 5
 URxvt*perl-ext-common: default,matcher
 URxvt*url-launcher: /usr/bin/chromium
 URxvt*matcher.button: 1
-#Default font (same as fixed)
+!Default font (same as fixed)
 URxvt*font: 6x13
-#Bind C-0, C-+ and C-= to activate medium, big and small font size respectively.
+!Bind C-0, C-+ and C-= to activate medium, big and small font size respectively.
 URxvt*keysym.C-0: command:\033]710;6x13\007
 URxvt*keysym.C-minus: command:\033]710;5x8\007
 URxvt*keysym.C-equal: command:\033]710;9x15\007
-#home and end
+!home and end
 URxvt*keysym.Home: \033[1~
 URxvt*keysym.End: \033[4~
-#bell:
+!bell:
 URxvt*urgentOnBell: true
+
+!Visible blue colour:
+*color12: RoyalBlue

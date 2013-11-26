@@ -53,7 +53,7 @@ zstyle -e ':completion::*:*:*:hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~
 # don't auto correct lua to la:
 alias lua='nocorrect lua '
 alias tmux='tmux -2'
-alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
+#alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
 
 man() {
     env LESS_TERMCAP_mb=$'\E[01;31m' \
@@ -66,4 +66,5 @@ man() {
     man "$@"
 }
 
+source $HOME/.homesick/repos/homeshick/homeshick.sh
 homeshick --quiet refresh #remind me if I haven't updated my dotfiles in a while.
