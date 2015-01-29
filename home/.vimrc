@@ -8,19 +8,22 @@ set t_Co=256
 
 " Vundle
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarick/Vundle.vim'
 
 " Add Bundles here:
-Bundle 'gmarik/vundle'
-Bundle 'Syntastic'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'sjl/gundo.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'bling/vim-airline'
-Bundle 'tpope/vim-fugitive'
-Bundle 'bling/vim-bufferline'
-Bundle 'Raimondi/delimitMate'
+Plugin 'Syntastic'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'sjl/gundo.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'bling/vim-airline'
+Plugin 'tpope/vim-fugitive'
+Plugin 'bling/vim-bufferline'
+Plugin 'Raimondi/delimitMate'
+Plugin 'gilligan/vim-lldb'
+
+call vundle#end()
 filetype plugin indent on
 
 " Enable syntax highlighting if available:

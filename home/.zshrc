@@ -45,7 +45,7 @@ plugins=(git screen svn tmux)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/home/zed0/bin:/home/zed0/.gem/ruby/1.8/bin:$PATH:/usr/local/bin:/usr/bin:/bin:/usr/games
+export PATH=/home/zed0/.local/bin:/home/zed0/bin:/home/zed0/.gem/ruby/1.8/bin:$PATH:/usr/local/bin:/usr/bin:/bin:/usr/games
 
 # ssh autocomplete:
 zstyle -e ':completion::*:*:*:hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
