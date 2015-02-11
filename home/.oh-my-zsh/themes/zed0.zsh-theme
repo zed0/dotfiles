@@ -1,11 +1,17 @@
 PROMPT='%{$fg_bold[white]%}%n%{$fg_no_bold[white]%}@%{$fg_bold[white]%}%m:%{$fg_no_bold[green]%}%3~%{$reset_color%}» '
-RPROMPT='$(git_prompt_info)%{$fg_no_bold[green]%}[%*]%{$reset_color%}'
+RPROMPT='$(hg_prompt_info)$(git_prompt_info)%{$fg_no_bold[green]%}[%*]%{$reset_color%}'
 
 # git theming
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg_bold[yellow]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_no_bold[green]%}✓%{$fg_bold[blue]%})"
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_no_bold[red]%}×%{$fg_bold[blue]%})"
+
+# mercurial theming
+ZSH_THEME_HG_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg_bold[yellow]%}"
+ZSH_THEME_HG_PROMPT_SUFFIX="%{$reset_color%}"
+ZSH_THEME_HG_PROMPT_CLEAN="%{$fg_no_bold[green]%}✓%{$fg_bold[blue]%})"
+ZSH_THEME_HG_PROMPT_DIRTY="%{$fg_no_bold[red]%}×%{$fg_bold[blue]%})"
 
 # LS colors, made with http://geoff.greer.fm/lscolors/
 export LSCOLORS="Gxfxcxdxbxegedabagacad"

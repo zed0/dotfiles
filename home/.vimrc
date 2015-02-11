@@ -19,9 +19,9 @@ Plugin 'sjl/gundo.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
-Plugin 'bling/vim-bufferline'
+"Plugin 'bling/vim-bufferline'
 Plugin 'Raimondi/delimitMate'
-Plugin 'gilligan/vim-lldb'
+"Plugin 'gilligan/vim-lldb'
 
 call vundle#end()
 filetype plugin indent on
@@ -49,6 +49,12 @@ let g:airline_detect_whitespace = 0
 let g:airline_theme='badwolf'
 let g:airline_left_sep='►'
 let g:airline_right_sep='◄'
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#left_sep='►'
+let g:airline#extensions#tabline#left_alt_sep='|'
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#buffer_nr_format = '%s:'
+
 " get the colours working like I want (done with autocmd because otherwise
 " something overwrites it):
 " Should really use an after file
@@ -67,8 +73,8 @@ autocmd VimEnter * highlight clear AlBl_inactive
 autocmd VimEnter * highlight link AlBl_inactive Al5
 
 " options for bufferline
-let g:bufferline_echo = 0
-let g:bufferline_rotate = 3
+"let g:bufferline_echo = 0
+"let g:bufferline_rotate = 3
 
 " options for gundo
 let g:gundo_focus_main_buffer = 0
@@ -173,6 +179,8 @@ noremap L $
 " Make scrollwheel work in a normal fashion:
 map <ScrollWheelUp> <C-Y>
 map <ScrollWheelDown> <C-E>
+" Keep at least 10 lines visible above and below the cursor if possible:
+set scrolloff=10
 
 nnoremap <leader>l :nohlsearch <cr>
 
