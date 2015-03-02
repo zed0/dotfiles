@@ -51,6 +51,10 @@ flags = [
 # For a C project, you would set this to 'c' instead of 'c++'.
 '-x',
 'c++',
+'-I',
+'/opt/boost/include',
+'-I',
+'/opt/qt5/5.3/gcc_64/include'
 ]
 
 # Set this to the absolute path to the folder (NOT the file!) containing the
@@ -59,7 +63,7 @@ flags = [
 #
 # Most projects will NOT need to set this to anything; you can just change the
 # 'flags' list of compilation flags. Notice that YCM itself uses that approach.
-compilation_database_folder = ''
+compilation_database_folder = '/home/zed0/.vim/'
 
 if compilation_database_folder:
   database = ycm_core.CompilationDatabase( compilation_database_folder )

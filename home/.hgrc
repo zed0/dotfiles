@@ -21,3 +21,11 @@ color =
 purge =
 shelve =
 graphlog =
+
+[alias]
+lg = log -l 30 -G --template "{label('custom.rev',node|short)} {desc} {label('custom.time',date|age)} {label('custom.author',author|person)}"
+
+[color]
+custom.rev = red
+custom.author = blue bold
+custom.time = green

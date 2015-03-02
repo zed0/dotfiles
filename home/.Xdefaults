@@ -10,7 +10,7 @@ URxvt*transparent: true
 URxvt*shading: 5
 #links:
 URxvt*perl-ext-common: default,matcher
-URxvt*url-launcher: /usr/bin/chromium
+URxvt*url-launcher: /usr/bin/google-chrome
 URxvt*matcher.button: 1
 !Default font (same as fixed)
 URxvt*font: 6x13
