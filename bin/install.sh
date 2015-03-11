@@ -10,4 +10,4 @@ git clone https://github.com/zed0/dotfiles.git $HOME/.homesick/repos/dotfiles
 $HOME/.homesick/repos/homeshick/home/.homeshick link
 
 #vundle (which should install the rest of the vim plugins):
-git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/vundle
+git clone https://github.com/gmarik/vundle.git $HOME/.vim/bundle/Vundle.vim
