@@ -23,9 +23,17 @@ shelve =
 graphlog =
 
 [alias]
-lg = log -l 30 -G --template "{label('custom.rev',node|short)} {desc} {label('custom.time',date|age)} {label('custom.author',author|person)}"
+lg = log -l 30 --color=always -G --template "{if(tags, label('custom.tag','[{tags}] '))}{if(bookmarks, label('custom.bookmark','[{bookmarks}] '))}{label('custom.rev',node|short)} {desc} {label('custom.time',date|age)} {label('custom.author',author|person)}"
+lgs = log -l 30 --color=always -G --template "{if(tags, label('custom.tag','[{tags}] '))}{if(bookmarks, label('custom.bookmark','[{bookmarks}] '))}{label('custom.rev',node|short)} {label('custom.time',date|age)} {label('custom.author',author|person)}"
+# Compact log (removes empty lines): hg lg | grep '[^| ]' --color=never
+lgc = !$HG lg $@ | grep '[^| ]' --color=never
 
 [color]
 custom.rev = red
+custom.tag = yellow bold
+custom.bookmark = yellow
 custom.author = blue bold
 custom.time = green
+
+[hooks]
+pretxncommit.bad = check_commit.py

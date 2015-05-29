@@ -40,7 +40,7 @@ ZSH_THEME="zed0"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git mercurial screen svn tmux)
+plugins=(git mercurial screen svn tmux ninja)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -50,6 +50,9 @@ export CGCC_FORCE_COLOR=true
 
 # ssh autocomplete:
 zstyle -e ':completion::*:*:*:hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+
+zstyle ':completion::complete:*' use-cache on
+compinit -u
 
 # don't auto correct lua to la:
 alias lua='nocorrect lua '

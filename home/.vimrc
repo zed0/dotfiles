@@ -10,7 +10,7 @@ set t_Co=256
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'gmarick/Vundle.vim'
+Plugin 'git@github.com:gmarik/Vundle.vim.git'
 
 " Add Bundles here:
 Plugin 'Syntastic'
@@ -19,9 +19,11 @@ Plugin 'sjl/gundo.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-fugitive'
+Plugin 'junegunn/vim-easy-align'
 "Plugin 'bling/vim-bufferline'
 Plugin 'Raimondi/delimitMate'
 "Plugin 'gilligan/vim-lldb'
+Plugin 'SirVer/ultisnips'
 
 call vundle#end()
 filetype plugin indent on
@@ -91,6 +93,36 @@ let NERDTreeShowHidden = 1
 let delimitMate_expand_cr = 1
 let delimitMate_matchpairs = "(:),[:],{:}"
 let delimitMate_quotes = ""
+
+" EasyAlign mappings:
+vmap <Enter> <Plug>(EasyAlign)
+"nmap ga <Plug>(EasyAlign)
+
+" options for ultisnips
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-e>"
+
+" ultisnips/YCM integration
+
+function! g:UltiSnips_Complete()
+	call UltiSnips#ExpandSnippet()
+	if g:ulti_expand_res == 0
+		if pumvisible()
+			return "\<C-n>"
+		else
+			call UltiSnips#JumpForwards()
+			if g:ulti_jump_forwards_res == 0
+				return "\<TAB>"
+			endif
+		endif
+	endif
+	return ""
+endfunction
+
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+
+" end ultisnips/ycm integration
 
 " rotates between no line numbers, normal line numbers and relative line numbers:
 function! NumberToggle()
@@ -188,6 +220,13 @@ map <ScrollWheelDown> <C-E>
 set scrolloff=10
 
 nnoremap <leader>l :nohlsearch <cr>
+nnoremap <leader>p :set paste! <cr>
+" Map GoTo to <leader>d
+nnoremap <leader>d :YcmCompleter GoTo<cr>
+nnoremap <leader>sd :sp<CR>:YcmCompleter GoTo<cr>
+" switch from *.cpp to *.h and vice-versa
+nnoremap <leader>h :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+nnoremap <leader>sh :sp %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 
 " set folding type:
 set foldmethod=syntax
