@@ -100,6 +100,7 @@ vmap <Enter> <Plug>(EasyAlign)
 
 " options for ultisnips
 let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsListSnippets="<c-e>"
 
