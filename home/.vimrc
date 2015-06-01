@@ -50,8 +50,6 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 
 " options for airline
 set laststatus=2
-let g:airline_enable_syntastic = 0
-let g:airline_detect_whitespace = 0
 let g:airline_theme='badwolf'
 let g:airline_left_sep='►'
 let g:airline_right_sep='◄'
@@ -60,6 +58,8 @@ let g:airline#extensions#tabline#left_sep='►'
 let g:airline#extensions#tabline#left_alt_sep='|'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#buffer_nr_format = '%s:'
+let g:airline#extensions#syntastic#enabled = 0
+let g:airline#extensions#whitespace#enabled#show_message = 0
 
 " get the colours working like I want (done with autocmd because otherwise
 " something overwrites it):
