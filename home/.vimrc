@@ -225,9 +225,11 @@ nnoremap <leader>p :set paste! <cr>
 " Map GoTo to <leader>d
 nnoremap <leader>d :YcmCompleter GoTo<cr>
 nnoremap <leader>sd :sp<CR>:YcmCompleter GoTo<cr>
+nnoremap <leader>td :tab :sp<CR>:YcmCompleter GoTo<cr>
 " switch from *.cpp to *.h and vice-versa
 nnoremap <leader>h :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 nnoremap <leader>sh :sp %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+nnoremap <leader>th :tabe %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 
 " set folding type:
 set foldmethod=syntax
