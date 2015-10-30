@@ -2,7 +2,7 @@
 [ui]
 # name and email, e.g.
 # username = Jane Doe <jdoe@example.com>
-username = Ben Falconer <ben.falconer@biositesystems.com>
+username = Ben Falconer <ben@falconers.me.uk>
 merge = vimdiff
 style = compact
 
@@ -16,17 +16,24 @@ vimdiff.premerge = keep
 # (see "hg help extensions" for more info)
 #
 # pager =
+strip =
+rebase =
+histedit =
 progress =
 color =
 purge =
 shelve =
 graphlog =
+record =
+hgext.crecord = /home/zed0/hg/crecord/crecord
 
 [alias]
-lg = log -l 30 --color=always -G --template "{if(tags, label('custom.tag','[{tags}] '))}{if(bookmarks, label('custom.bookmark','[{bookmarks}] '))}{label('custom.rev',node|short)} {desc} {label('custom.time',date|age)} {label('custom.author',author|person)}"
+lg = log -l 30 --color=always -G --template "{if(tags, label('custom.tag','[{tags}] '))}{if(bookmarks, label('custom.bookmark','[{bookmarks}] '))}{label('custom.rev',node|short)} {desc|firstline} {label('custom.time',date|age)} {label('custom.author',author|person)}"
 lgs = log -l 30 --color=always -G --template "{if(tags, label('custom.tag','[{tags}] '))}{if(bookmarks, label('custom.bookmark','[{bookmarks}] '))}{label('custom.rev',node|short)} {label('custom.time',date|age)} {label('custom.author',author|person)}"
 # Compact log (removes empty lines): hg lg | grep '[^| ]' --color=never
-lgc = !$HG lg $@ | grep '[^| ]' --color=never
+lgc = !$HG lg -l 50 $@ | grep '[^| ]' --color=never
+#works with -r, not -c
+vimdiff = !$HG cat $@ | vim - -c ":vert diffsplit $1" -c "cnoreabbrev q :qa!"
 
 [color]
 custom.rev = red

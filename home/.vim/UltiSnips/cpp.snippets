@@ -1,4 +1,4 @@
-snippet guard "Header guard"
+snippet `guard "Header guard"
 #ifndef ${1/(\w)?(\W)?/(?1:\u$1)(?2:_)/g}
 #define ${1/(\w)?(\W)?/(?1:\u$1)(?2:_)/g}
 
@@ -7,13 +7,13 @@ ${0:$1}
 #endif // ${1/(\w)?(\W)?/(?1:\u$1)(?2:_)/g}
 endsnippet
 
-snippet "n(ame)?s(pace)?" "Namespace" r
+snippet "`n(ame)?s(pace)?" "Namespace" r
 namespace $1
 {
-	$2
+	$0
 } // namespace $1
 endsnippet
 
-snippet debug "debug"
+snippet `debug "debug"
 std::cout << "Value of $1: " << $1 << std::endl;
 endsnippet

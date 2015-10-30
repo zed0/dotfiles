@@ -14,7 +14,9 @@ Plugin 'git@github.com:gmarik/Vundle.vim.git'
 
 " Add Bundles here:
 Plugin 'Syntastic'
+Bundle 'ervandew/supertab'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'rdnetto/YCM-Generator'
 Plugin 'sjl/gundo.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
@@ -24,6 +26,10 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'Raimondi/delimitMate'
 "Plugin 'gilligan/vim-lldb'
 Plugin 'SirVer/ultisnips'
+Plugin 'jtratner/vim-flavored-markdown'
+Plugin 'rhysd/vim-clang-format'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'tpope/vim-dispatch'
 
 call vundle#end()
 filetype plugin indent on
@@ -43,6 +49,7 @@ let g:ycm_confirm_extra_conf = 0
 " don't complete inside strings or comments
 let g:ycm_complete_in_strings = 0
 let g:ycm_complete_in_comment = 0
+let g:ycm_min_num_of_chars_for_completion = 1
 " check for errors every 2000ms
 let g:ycm_allow_changing_updatetime = 0
 set updatetime=2000
@@ -100,30 +107,22 @@ vmap <Enter> <Plug>(EasyAlign)
 
 " options for ultisnips
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
+"let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsListSnippets="<c-e>"
 
-" ultisnips/YCM integration
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
-function! g:UltiSnips_Complete()
-	call UltiSnips#ExpandSnippet()
-	if g:ulti_expand_res == 0
-		if pumvisible()
-			return "\<C-n>"
-		else
-			call UltiSnips#JumpForwards()
-			if g:ulti_jump_forwards_res == 0
-				return "\<TAB>"
-			endif
-		endif
-	endif
-	return ""
-endfunction
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-
-" end ultisnips/ycm integration
+" clang-format options
+"let g:clang_format#code_style = "file"
 
 " rotates between no line numbers, normal line numbers and relative line numbers:
 function! NumberToggle()
@@ -144,6 +143,7 @@ function! NumberToggle()
 endfunc
 
 " Function key mappings:
+nnoremap <F1> :YcmCompleter GetDoc<cr>
 nnoremap <F2> :call NumberToggle()<cr>
 nnoremap <F3> :GundoToggle<CR>
 nnoremap <F4> :NERDTreeToggle<CR>
@@ -197,6 +197,13 @@ set shiftwidth=4
 set mouse=a
 set guifont=10x20
 
+autocmd FileType python setlocal expandtab
+
+augroup markdown
+	au!
+	au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
+augroup END
+
 let mapleader=","
 
 map <MouseDown> <C-U>
@@ -220,6 +227,8 @@ map <ScrollWheelDown> <C-E>
 " Keep at least 10 lines visible above and below the cursor if possible:
 set scrolloff=10
 
+" gp selects pasted text
+nnoremap gp `[v`]
 nnoremap <leader>l :nohlsearch <cr>
 nnoremap <leader>p :set paste! <cr>
 " Map GoTo to <leader>d
@@ -232,5 +241,8 @@ nnoremap <leader>sh :sp %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 nnoremap <leader>th :tabe %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 
 " set folding type:
-set foldmethod=syntax
+set foldmethod=indent
 set foldlevel=200
+
+set exrc
+set secure

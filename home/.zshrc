@@ -59,6 +59,10 @@ alias lua='nocorrect lua '
 alias tmux='tmux -2'
 #alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
 
+# make valgrind usable
+ulimit -c unlimited
+alias cvalgrind='valgrind --leak-check=full --track-origins=yes --db-attach=yes --db-command='\''cgdb -nw %f %p'\'
+
 man() {
     env LESS_TERMCAP_mb=$'\E[01;31m' \
     LESS_TERMCAP_md=$'\E[01;38;5;11m' \
