@@ -1,9 +1,22 @@
-hg_bookmark_info() {
-	echo -n $(hg id -B 2>/dev/null)
+function hg_bookmark_information {
+	BOOKMARK=$(hg id -B 2>/dev/null)
+	if [[ -n $BOOKMARK ]]
+	then
+		echo -n '|'$BOOKMARK
+	fi
+}
+
+function hg_prompt_information {
+	if [ $(in_hg) ]; then
+		_DISPLAY=$(hg_get_branch_name)$(hg_bookmark_information)
+		echo "$ZSH_PROMPT_BASE_COLOR$ZSH_THEME_HG_PROMPT_PREFIX\
+$ZSH_THEME_REPO_NAME_COLOR$_DISPLAY$ZSH_PROMPT_BASE_COLOR$ZSH_PROMPT_BASE_COLOR$(hg_dirty)$ZSH_THEME_HG_PROMPT_SUFFIX$ZSH_PROMPT_BASE_COLOR"
+		unset _DISPLAY
+	fi
 }
 
 PROMPT='%{$fg_bold[white]%}%n%{$fg_no_bold[white]%}@%{$fg_bold[white]%}%m:%{$fg_no_bold[green]%}%3~%{$reset_color%}» '
-RPROMPT='$(hg_prompt_info)$(git_prompt_info)%{$fg_no_bold[green]%}[%*]%{$reset_color%}'
+RPROMPT='$(hg_prompt_information)$(git_prompt_info)%{$fg_no_bold[green]%}[%*]%{$reset_color%}'
 
 # git theming
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg_bold[yellow]%}"
@@ -14,8 +27,8 @@ ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_no_bold[red]%}×%{$fg_bold[blue]%})"
 # mercurial theming
 ZSH_THEME_HG_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg_bold[yellow]%}"
 ZSH_THEME_HG_PROMPT_SUFFIX="%{$reset_color%}"
-ZSH_THEME_HG_PROMPT_CLEAN="|$(hg_bookmark_info)%{$fg_no_bold[green]%}✓%{$fg_bold[blue]%})"
-ZSH_THEME_HG_PROMPT_DIRTY="|$(hg_bookmark_info)%{$fg_no_bold[red]%}×%{$fg_bold[blue]%})"
+ZSH_THEME_HG_PROMPT_CLEAN="%{$fg_no_bold[green]%}✓%{$fg_bold[blue]%})"
+ZSH_THEME_HG_PROMPT_DIRTY="%{$fg_no_bold[red]%}×%{$fg_bold[blue]%})"
 
 # LS colors, made with http://geoff.greer.fm/lscolors/
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
