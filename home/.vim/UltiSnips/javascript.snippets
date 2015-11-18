@@ -1,3 +1,9 @@
 snippet debug "debug"
 console.log($1);
 endsnippet
+
+snippet `line "Print line number" "snip.line+1" be
+console.log('Line `!p
+snip.rv = snip.context
+`');
+endsnippet

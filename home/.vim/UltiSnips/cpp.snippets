@@ -14,6 +14,23 @@ namespace $1
 } // namespace $1
 endsnippet
 
-snippet `debug "debug"
-std::cout << "Value of $1: " << $1 << std::endl;
+snippet `debug "Debug line number and value" "snip.line+1" be
+std::cout << "Line `!p
+snip.rv = snip.context
+`:\tValue of $1: " << $1 << std::endl;
+endsnippet
+
+snippet `line "Print line number" "snip.line+1" be
+std::cout << "Line `!p
+snip.rv = snip.context
+`" << std::endl;
+endsnippet
+
+snippet `constructors "C++ constructors"
+$1() = default;
+$1($1&&) = default;
+$1& operator=($1&&) = default;
+$1(const $1&) = default;
+$1& operator=(const $1&) = default;
+~$1() = default;
 endsnippet
