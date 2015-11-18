@@ -1,10 +1,12 @@
 " vimrc by zed0
 
 " Use Vim defaults (much better!)
-set nocompatible
-" Use 256 colours (all modern terminals support this)
-set term=xterm
-set t_Co=256
+if !has('nvim')
+	set nocompatible
+	set term=xterm
+	" Use 256 colours (all modern terminals support this)
+	set t_Co=256
+endif
 
 " Vundle
 filetype off
@@ -158,6 +160,8 @@ set autoindent
 set textwidth=0
 " Don't keep a backup file
 set nobackup
+" Don't keep a backup file
+set nowritebackup
 " keep 50 lines of command line history
 set history=50
 " show the cursor position all the time
@@ -231,6 +235,7 @@ set scrolloff=10
 nnoremap gp `[v`]
 nnoremap <leader>l :nohlsearch <cr>
 nnoremap <leader>p :set paste! <cr>
+imap <C-p> <C-o>:set paste!<cr>
 " Map GoTo to <leader>d
 nnoremap <leader>d :YcmCompleter GoTo<cr>
 nnoremap <leader>sd :sp<CR>:YcmCompleter GoTo<cr>
@@ -239,6 +244,10 @@ nnoremap <leader>td :tab :sp<CR>:YcmCompleter GoTo<cr>
 nnoremap <leader>h :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 nnoremap <leader>sh :sp %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 nnoremap <leader>th :tabe %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+
+if has('nvim')
+	nnoremap <C-W>t :sp<CR>:term<CR>
+endif
 
 " set folding type:
 set foldmethod=indent
