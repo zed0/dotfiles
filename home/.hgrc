@@ -33,10 +33,13 @@ cmd.vimdiff =
 opts.vimdiff = -c "cnoreabbrev q :qa!"
 
 [alias]
-lg = log -l 30 --color=always -G --template "{if(tags, label('custom.tag','[{tags}] '))}{if(bookmarks, label('custom.bookmark','[{bookmarks}] '))}{label('custom.rev',node|short)} {desc|firstline} {label('custom.time',date|age)} {label('custom.author',author|person)}"
-lgs = log -l 30 --color=always -G --template "{if(tags, label('custom.tag','[{tags}] '))}{if(bookmarks, label('custom.bookmark','[{bookmarks}] '))}{label('custom.rev',node|short)} {label('custom.time',date|age)} {label('custom.author',author|person)}"
+lg_base = log --color=always -G --template "{if(tags, label('custom.tag','[{tags}] '))}{if(bookmarks, label('custom.bookmark','[{bookmarks}] '))}{label('changeset.{phase}',node|short)} {desc|firstline} {label('custom.time',date|age)} {label('custom.author',author|person)}"
+#lgs = log -l 30 --color=always -G --template "{if(tags, label('custom.tag','[{tags}] '))}{if(bookmarks, label('custom.bookmark','[{bookmarks}] '))}{label('custom.rev',node|short)} {label('custom.time',date|age)} {label('custom.author',author|person)}"
 # Compact log (removes empty lines): hg lg | grep '[^| ]' --color=never
-lgc = !$HG lg -l 50 $@ | grep '[^| ]' --color=never
+lg = !$HG lg_base "$@" | less -FRXS
+lgc = !$HG lg_base "$@" | grep '[^| ]' --color=never 2>/dev/null | less -FRXS
+lgr = !$HG lg_base | grep '[^| ]' --color=never 2>/dev/null | less -FRXS -j.5 -p$1
+
 #works with -r, not -c use extdiff instead. ^^
 #vimdiff = !$HG cat $@ | vim - -c ":vert diffsplit $1" -c "cnoreabbrev q :qa!"
 
@@ -46,6 +49,10 @@ custom.tag = yellow bold
 custom.bookmark = yellow
 custom.author = blue bold
 custom.time = green
+
+changeset.public=red
+changeset.secret=blue
+changeset.draft=green
 
 [hooks]
 pretxncommit.bad = check_commit.py
