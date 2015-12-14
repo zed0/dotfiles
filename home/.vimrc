@@ -32,6 +32,8 @@ Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'rhysd/vim-clang-format'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'tpope/vim-dispatch'
+Plugin 'MattesGroeger/vim-bookmarks'
+Plugin 'einars/vim-jsbeautify'
 
 call vundle#end()
 filetype plugin indent on
@@ -126,6 +128,22 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " clang-format options
 "let g:clang_format#code_style = "file"
 
+autocmd FileType javascript nnoremap <leader>f :call JsBeautify()<cr>
+" for json
+autocmd FileType json nnoremap <leader>f :call JsonBeautify()<cr>
+" for jsx
+autocmd FileType jsx nnoremap <leader>f :call JsxBeautify()<cr>
+" for html
+autocmd FileType html nnoremap <leader>f :call HtmlBeautify()<cr>
+" for css or scss
+autocmd FileType css nnoremap <leader>f :call CSSBeautify()<cr>
+
+autocmd FileType javascript vnoremap <leader>f :call RangeJsBeautify()<cr>
+autocmd FileType json vnoremap <leader>f :call RangeJsonBeautify()<cr>
+autocmd FileType jsx vnoremap <leader>f :call RangeJsxBeautify()<cr>
+autocmd FileType html vnoremap <leader>f :call RangeHtmlBeautify()<cr>
+autocmd FileType css vnoremap <leader>f :call RangeCSSBeautify()<cr>
+
 " rotates between no line numbers, normal line numbers and relative line numbers:
 function! NumberToggle()
 	if (exists('&relativenumber'))
@@ -143,6 +161,9 @@ function! NumberToggle()
 		set nu!
 	endif
 endfunc
+
+set number
+set relativenumber
 
 " Function key mappings:
 nnoremap <F1> :YcmCompleter GetDoc<cr>
