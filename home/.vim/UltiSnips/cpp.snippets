@@ -1,10 +1,21 @@
+global !p
+from os.path import relpath
+
+project_base = '/home/zed0/'
+
+def include_guard_name(file_path, snip):
+	path_from_base = relpath(file_path, snip.opt('g:VimProjectBase', project_base))
+	return re.sub('\W', '_', path_from_base).upper() + '_INCLUDED'
+
+endglobal
+
 snippet `guard "Header guard"
-#ifndef ${1/(\w)?(\W)?/(?1:\u$1)(?2:_)/g}
-#define ${1/(\w)?(\W)?/(?1:\u$1)(?2:_)/g}
+#ifndef `!p snip.rv=include_guard_name(path, snip)`
+#define `!p snip.rv=include_guard_name(path, snip)`
 
-${0:$1}
+$0
 
-#endif // ${1/(\w)?(\W)?/(?1:\u$1)(?2:_)/g}
+#endif // `!p snip.rv=include_guard_name(path, snip)`
 endsnippet
 
 snippet "`n(ame)?s(pace)?" "Namespace" r
