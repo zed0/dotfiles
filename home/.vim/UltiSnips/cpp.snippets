@@ -24,7 +24,7 @@ def splitall(path):
 	return allparts
 
 
-def namespaces(file_path, snip):
+def namespaces_open(file_path, snip):
 	path_from_base = project_path(file_path, snip)
 	spaces = splitall(path_from_base)
 	aliases = snip.opt('g:NamespaceDirMap')
@@ -41,8 +41,17 @@ def namespaces(file_path, snip):
 			result = result + ('\t'*tabs) + '{\n'
 			tabs = tabs + 1
 
-	result = result + ('\t'*tabs) + '\n'
+	result = result + ('\t'*tabs)
+	return (result, tabs)
 
+
+def namespaces_close(file_path, snip, initial_tabs):
+	path_from_base = project_path(file_path, snip)
+	spaces = splitall(path_from_base)
+	aliases = snip.opt('g:NamespaceDirMap')
+
+	tabs = initial_tabs
+	result=''
 	for piece in reversed(spaces[:-1]):
 		if piece in aliases:
 			name=aliases[piece]
@@ -70,15 +79,9 @@ $0
 #endif // `!p snip.rv=include_guard_name(path, snip)`
 endsnippet
 
-#snippet "`n(ame)?s(pace)?" "Namespace" r
-#namespace $1
-#{
-#	$0
-#} // namespace $1
-#endsnippet
-
 snippet "`n(ame)?s(pace)?" "Namespace" r
-`!p snip.rv=namespaces(path, snip)`
+`!p result=namespaces_open(path, snip); snip.rv=result[0]`$0
+`!p snip.rv=namespaces_close(path, snip, result[1])`
 endsnippet
 
 
