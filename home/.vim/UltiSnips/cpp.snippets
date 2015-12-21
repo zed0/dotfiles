@@ -1,10 +1,62 @@
 global !p
-from os.path import relpath
+import os, sys
 
 project_base = '/home/zed0/'
 
+
+def project_path(file_path, snip):
+	return os.path.relpath(file_path, snip.opt('g:VimProjectBase', project_base))
+
+
+def splitall(path):
+	allparts = []
+	while 1:
+		parts = os.path.split(path)
+		if parts[0] == path:  # sentinel for absolute paths
+			allparts.insert(0, parts[0])
+			break
+		elif parts[1] == path: # sentinel for relative paths
+			allparts.insert(0, parts[1])
+			break
+		else:
+			path = parts[0]
+			allparts.insert(0, parts[1])
+	return allparts
+
+
+def namespaces(file_path, snip):
+	path_from_base = project_path(file_path, snip)
+	spaces = splitall(path_from_base)
+	aliases = snip.opt('g:NamespaceDirMap')
+
+	tabs = 0
+	result=''
+	for piece in spaces[:-1]:
+		if piece in aliases:
+			name=aliases[piece]
+		else:
+			name = piece
+		if len(name):
+			result = result + ('\t'*tabs) + 'namespace ' + name + '\n'
+			result = result + ('\t'*tabs) + '{\n'
+			tabs = tabs + 1
+
+	result = result + ('\t'*tabs) + '\n'
+
+	for piece in reversed(spaces[:-1]):
+		if piece in aliases:
+			name=aliases[piece]
+		else:
+			name = piece
+		if len(name):
+			tabs = tabs - 1
+			result = result + ('\t'*tabs) + '} // namespace ' + name + '\n'
+
+	return result
+
+
 def include_guard_name(file_path, snip):
-	path_from_base = relpath(file_path, snip.opt('g:VimProjectBase', project_base))
+	path_from_base = project_path(file_path, snip)
 	return re.sub('\W', '_', path_from_base).upper() + '_INCLUDED'
 
 endglobal
@@ -18,12 +70,17 @@ $0
 #endif // `!p snip.rv=include_guard_name(path, snip)`
 endsnippet
 
+#snippet "`n(ame)?s(pace)?" "Namespace" r
+#namespace $1
+#{
+#	$0
+#} // namespace $1
+#endsnippet
+
 snippet "`n(ame)?s(pace)?" "Namespace" r
-namespace $1
-{
-	$0
-} // namespace $1
+`!p snip.rv=namespaces(path, snip)`
 endsnippet
+
 
 snippet `debug "Debug line number and value" "snip.line+1" be
 std::cout << "Line `!p
