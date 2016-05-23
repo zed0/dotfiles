@@ -43,6 +43,12 @@ def bad_lines(difflines):
             m = re.search(r'std::cout', line)
             if m:
                 yield filename, linenum, 'std::cout'
+            m = re.search(r'fdescribe\(', line)
+            if m:
+                yield filename, linenum, 'fdescribe()'
+            m = re.search(r'fit\(', line)
+            if m:
+                yield filename, linenum, 'fit()'
         if line and line[0] in ' +':
             linenum += 1
 
