@@ -22,6 +22,7 @@ Plugin 'rdnetto/YCM-Generator'
 Plugin 'sjl/gundo.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/vim-easy-align'
 "Plugin 'bling/vim-bufferline'
@@ -34,6 +35,10 @@ Plugin 'marijnh/tern_for_vim'
 Plugin 'tpope/vim-dispatch'
 Plugin 'MattesGroeger/vim-bookmarks'
 Plugin 'einars/vim-jsbeautify'
+Plugin 'junegunn/fzf.vim'
+Plugin 'junegunn/fzf'
+Plugin 'AndrewRadev/linediff.vim'
+Plugin 'lfv89/vim-interestingwords'
 
 call vundle#end()
 filetype plugin indent on
@@ -146,7 +151,7 @@ autocmd FileType css vnoremap <leader>f :call RangeCSSBeautify()<cr>
 
 " rotates between no line numbers, normal line numbers and relative line numbers:
 function! NumberToggle()
-	if (exists('&relativenumber'))
+	if(exists('&relativenumber'))
 		if(&number == 0 && &relativenumber == 0)
 			set number
 		elseif(&number == 1 && &relativenumber == 0)
@@ -175,7 +180,7 @@ nnoremap <F4> :NERDTreeToggle<CR>
 set hidden
 " allow backspacing over everything in insert mode
 set backspace=2
-" Now we set some defaults for the editor 
+" Now we set some defaults for the editor
 set autoindent
 " Don't wrap words by default
 set textwidth=0
@@ -269,6 +274,9 @@ nnoremap <leader>th :tabe %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
 if has('nvim')
 	nnoremap <C-W>t :sp<CR>:term<CR>
 endif
+
+map <leader>o :FZF<CR>
+map <leader>i :Ag 
 
 " set folding type:
 set foldmethod=indent
