@@ -79,22 +79,25 @@ $0
 #endif // `!p snip.rv=include_guard_name(path, snip)`
 endsnippet
 
-snippet "`n(ame)?s(pace)?" "Namespace" r
+snippet `namespace "Full namespace"
 `!p result=namespaces_open(path, snip); snip.rv=result[0]`$0
 `!p snip.rv=namespaces_close(path, snip, result[1])`
 endsnippet
 
+snippet `ns "Single namespace"
+namespace $1
+{
+	$0
+} // namespace $1
+endsnippet
+
 
 snippet `debug "Debug line number and value" "snip.line+1" be
-std::cout << "Line `!p
-snip.rv = snip.context
-`:\tValue of $1: " << $1 << std::endl;
+std::cout << __FILE__ << ":" << __LINE__ << ": Value of $1: " << $1 << std::endl;
 endsnippet
 
 snippet `line "Print line number" "snip.line+1" be
-std::cout << "Line `!p
-snip.rv = snip.context
-`" << std::endl;
+std::cout << __FILE__ << ":" << __LINE__ << std::endl;
 endsnippet
 
 snippet `constructors "C++ constructors"
