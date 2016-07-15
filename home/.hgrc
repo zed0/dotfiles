@@ -6,6 +6,7 @@ username = Ben Falconer <ben@falconers.me.uk>
 merge = vimdiff
 style = compact
 commitsubrepos = false
+ignore = /home/zed0/hg/ignore
 
 [merge-tools]
 vimdiff.executable = vimdiff
@@ -16,7 +17,7 @@ vimdiff.premerge = keep
 # uncomment these lines to enable some popular extensions
 # (see "hg help extensions" for more info)
 #
-# pager =
+pager =
 strip =
 rebase =
 histedit =
@@ -28,6 +29,12 @@ graphlog =
 record =
 hgext.crecord = /home/zed0/hg/crecord/crecord
 hgext.extdiff =
+remotebranches = /home/zed0/hg/remotebranches/hg_remotebranches.py
+
+[pager]
+pager = LESS='FRSXQ' less
+quiet = True
+attend = annotate,blame,log,shelve,diff,gdiff
 
 [extdiff]
 cmd.vimdiff =
@@ -40,6 +47,8 @@ lg_base = log --color=always -G --template "{if(tags, label('custom.tag','[{tags
 lg = !$HG lg_base "$@" | less -FRXS
 lgc = !$HG lg_base "$@" | grep '[^| ]' --color=never 2>/dev/null | less -FRXS
 lgr = !$HG lg_base | grep '[^| ]' --color=never 2>/dev/null | less -FRXS -j.5 -p$1
+
+blame = annotate --user --changeset --date -q
 
 #works with -r, not -c use extdiff instead. ^^
 #vimdiff = !$HG cat $@ | vim - -c ":vert diffsplit $1" -c "cnoreabbrev q :qa!"

@@ -167,6 +167,17 @@ function! NumberToggle()
 	endif
 endfunc
 
+function! FixJS()
+	"Save current cursor position"
+	let l:winview = winsaveview()
+	"run eslint fix on current buffer"
+	execute "silent ! eslint --fix --quiet " . g:syntastic_javascript_eslint_args . " % > /dev/null 2>&1"
+	"Restore cursor position"
+	call winrestview(l:winview)
+	call SyntasticCheck()
+endfunction
+command! FixJS :call FixJS()
+
 set number
 set relativenumber
 
@@ -175,6 +186,7 @@ nnoremap <F1> :YcmCompleter GetDoc<cr>
 nnoremap <F2> :call NumberToggle()<cr>
 nnoremap <F3> :GundoToggle<CR>
 nnoremap <F4> :NERDTreeToggle<CR>
+autocmd FileType javascript nnoremap <F5> :FixJS<CR>
 
 " don't force a save when moving to another buffer
 set hidden
@@ -275,6 +287,7 @@ if has('nvim')
 	nnoremap <C-W>t :sp<CR>:term<CR>
 endif
 
+" FZF bindings
 map <leader>o :FZF<CR>
 map <leader>i :Ag 
 

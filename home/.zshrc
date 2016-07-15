@@ -48,6 +48,8 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/home/zed0/.local/bin:/home/zed0/bin:/home/zed0/.gem/ruby/1.8/bin:$PATH:/usr/local/bin:/usr/bin:/bin:/usr/games
 export CGCC_FORCE_COLOR=true
 
+fpath=(~/.zsh/completion $fpath)
+
 # ssh autocomplete:
 zstyle -e ':completion::*:*:*:hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
