@@ -47,6 +47,7 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 export PATH=/home/zed0/.local/bin:/home/zed0/bin:/home/zed0/.gem/ruby/1.8/bin:$PATH:/usr/local/bin:/usr/bin:/bin:/usr/games
 export CGCC_FORCE_COLOR=true
+export FZF_DEFAULT_COMMAND="ag -l -g \"\""
 
 fpath=(~/.zsh/completion $fpath)
 
@@ -78,3 +79,5 @@ man() {
 
 source $HOME/.homesick/repos/homeshick/homeshick.sh
 homeshick --quiet refresh #remind me if I haven't updated my dotfiles in a while.
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
