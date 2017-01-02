@@ -25,20 +25,24 @@ Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/vim-easy-align'
-"Plugin 'bling/vim-bufferline'
 Plugin 'Raimondi/delimitMate'
-"Plugin 'gilligan/vim-lldb'
 Plugin 'SirVer/ultisnips'
 Plugin 'jtratner/vim-flavored-markdown'
 Plugin 'rhysd/vim-clang-format'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'tpope/vim-dispatch'
 Plugin 'MattesGroeger/vim-bookmarks'
-Plugin 'einars/vim-jsbeautify'
 Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/fzf'
 Plugin 'AndrewRadev/linediff.vim'
 Plugin 'lfv89/vim-interestingwords'
+Plugin 'sunaku/vim-dasht'
+Plugin 'file:///home/zed0/.vim/localBundles/syntasticHtmlHint'
+Plugin 'mtscout6/syntastic-local-eslint.vim'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Quramy/tsuquyomi'
 
 call vundle#end()
 filetype plugin indent on
@@ -76,6 +80,17 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#buffer_nr_format = '%s:'
 let g:airline#extensions#syntastic#enabled = 0
 let g:airline#extensions#whitespace#enabled#show_message = 0
+
+" options for dasht
+let g:dasht_filetype_docsets = {
+	\ 'cpp': ['boost', 'c\+\+', 'postgresql', 'qt'],
+	\ 'sql': ['postgresql'],
+	\ 'html': ['bootstrap_3', 'jquery', 'angularjs', 'css', 'font_awesome'],
+	\ 'css': ['css'],
+	\ 'javascript': ['jasmine', 'javascript', 'jquery', 'angularjs', 'momentjs', 'lo-dash', 'gulp'],
+	\ 'vimscript': ['vim'],
+	\ 'bash': ['bash'],
+	\ }
 
 " get the colours working like I want (done with autocmd because otherwise
 " something overwrites it):
@@ -130,24 +145,15 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_html_checkers = ['htmlhint']
+let g:tsuquyomi_disable_quickfix = 1
+let g:syntastic_typescript_checkers = ['tsuquyomi']
+
 " clang-format options
 "let g:clang_format#code_style = "file"
 
-autocmd FileType javascript nnoremap <leader>f :call JsBeautify()<cr>
-" for json
-autocmd FileType json nnoremap <leader>f :call JsonBeautify()<cr>
-" for jsx
-autocmd FileType jsx nnoremap <leader>f :call JsxBeautify()<cr>
-" for html
-autocmd FileType html nnoremap <leader>f :call HtmlBeautify()<cr>
-" for css or scss
-autocmd FileType css nnoremap <leader>f :call CSSBeautify()<cr>
-
-autocmd FileType javascript vnoremap <leader>f :call RangeJsBeautify()<cr>
-autocmd FileType json vnoremap <leader>f :call RangeJsonBeautify()<cr>
-autocmd FileType jsx vnoremap <leader>f :call RangeJsxBeautify()<cr>
-autocmd FileType html vnoremap <leader>f :call RangeHtmlBeautify()<cr>
-autocmd FileType css vnoremap <leader>f :call RangeCSSBeautify()<cr>
+autocmd FileType javascript setlocal omnifunc=tern#Complete<Paste>
 
 " rotates between no line numbers, normal line numbers and relative line numbers:
 function! NumberToggle()
@@ -168,12 +174,15 @@ function! NumberToggle()
 endfunc
 
 function! FixJS()
-	"Save current cursor position"
+	"Save current cursor position
 	let l:winview = winsaveview()
-	"run eslint fix on current buffer"
-	execute "silent ! eslint --fix --quiet " . g:syntastic_javascript_eslint_args . " % > /dev/null 2>&1"
-	"Restore cursor position"
+	"Temporarily add '--fix' to the eslint arguments
+	let l:original_args = get(g:, 'syntastic_javascript_eslint_args', '')
+	let g:syntastic_javascript_eslint_args = join([l:original_args, "--fix"], ' ')
+	call SyntasticCheck()
+	"Restore previous settings
 	call winrestview(l:winview)
+	let g:syntastic_javascript_eslint_args = l:original_args
 	call SyntasticCheck()
 endfunction
 command! FixJS :call FixJS()
@@ -182,7 +191,9 @@ set number
 set relativenumber
 
 " Function key mappings:
-nnoremap <F1> :YcmCompleter GetDoc<cr>
+nnoremap <silent> <F1> :call Dasht([expand('<cWORD>'), expand('<cword>')])<Return>
+vnoremap <silent> <F1> y:<C-U>call Dasht(getreg(0))<Return>
+
 nnoremap <F2> :call NumberToggle()<cr>
 nnoremap <F3> :GundoToggle<CR>
 nnoremap <F4> :NERDTreeToggle<CR>
@@ -241,6 +252,11 @@ set guifont=10x20
 
 autocmd FileType python setlocal expandtab
 
+augroup typescript
+	au!
+	au BufNewFile,BufRead *.ts setlocal filetype=typescript
+augroup END
+
 augroup markdown
 	au!
 	au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
@@ -290,6 +306,12 @@ endif
 " FZF bindings
 map <leader>o :FZF<CR>
 map <leader>i :Ag 
+
+" splitjoin bindings
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping = ''
+nmap <Leader>j :SplitjoinJoin<cr>
+nmap <Leader>s :SplitjoinSplit<cr>
 
 " set folding type:
 set foldmethod=indent
