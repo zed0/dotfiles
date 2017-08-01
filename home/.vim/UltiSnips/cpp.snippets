@@ -70,7 +70,7 @@ def include_guard_name(file_path, snip):
 
 endglobal
 
-snippet `guard "Header guard"
+snippet _guard "Header guard"
 #ifndef `!p snip.rv=include_guard_name(path, snip)`
 #define `!p snip.rv=include_guard_name(path, snip)`
 
@@ -79,12 +79,12 @@ $0
 #endif // `!p snip.rv=include_guard_name(path, snip)`
 endsnippet
 
-snippet `namespace "Full namespace"
+snippet _namespace "Full namespace"
 `!p result=namespaces_open(path, snip); snip.rv=result[0]`$0
 `!p snip.rv=namespaces_close(path, snip, result[1])`
 endsnippet
 
-snippet `ns "Single namespace"
+snippet _ns "Single namespace"
 namespace $1
 {
 	$0
@@ -92,15 +92,15 @@ namespace $1
 endsnippet
 
 
-snippet `debug "Debug line number and value" "snip.line+1" be
+snippet _debug "Debug line number and value" "snip.line+1" be
 std::cout << __FILE__ << ":" << __LINE__ << ": Value of $1: " << $1 << std::endl;
 endsnippet
 
-snippet `line "Print line number" "snip.line+1" be
+snippet _line "Print line number" "snip.line+1" be
 std::cout << __FILE__ << ":" << __LINE__ << std::endl;
 endsnippet
 
-snippet `constructors "C++ constructors"
+snippet _constructors "C++ constructors"
 $1() = default;
 $1($1&&) = default;
 $1& operator=($1&&) = default;

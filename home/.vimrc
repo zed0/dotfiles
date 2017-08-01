@@ -8,43 +8,51 @@ if !has('nvim')
 	set t_Co=256
 endif
 
-" Vundle
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'git@github.com:gmarik/Vundle.vim.git'
+call plug#begin('~/.vim/bundle/')
 
 " Add Bundles here:
-Plugin 'Syntastic'
-Bundle 'ervandew/supertab'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'rdnetto/YCM-Generator'
-Plugin 'sjl/gundo.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'tpope/vim-fugitive'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'Raimondi/delimitMate'
-Plugin 'SirVer/ultisnips'
-Plugin 'jtratner/vim-flavored-markdown'
-Plugin 'rhysd/vim-clang-format'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'tpope/vim-dispatch'
-Plugin 'MattesGroeger/vim-bookmarks'
-Plugin 'junegunn/fzf.vim'
-Plugin 'junegunn/fzf'
-Plugin 'AndrewRadev/linediff.vim'
-Plugin 'lfv89/vim-interestingwords'
-Plugin 'sunaku/vim-dasht'
-Plugin 'file:///home/zed0/.vim/localBundles/syntasticHtmlHint'
-Plugin 'mtscout6/syntastic-local-eslint.vim'
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'Quramy/tsuquyomi'
+"Syntax checking
+Plug 'vim-syntastic/Syntastic'
+Plug 'file:///home/zed0/.vim/localBundles/syntasticHtmlHint'
+Plug 'mtscout6/syntastic-local-eslint.vim'
 
-call vundle#end()
+"Code completion
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'ervandew/supertab'
+Plug 'SirVer/ultisnips'
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
+Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
+
+Plug 'Rip-Rip/clang_complete'
+Plug 'rhysd/vim-clang-format'
+Plug 'tpope/vim-dispatch'
+
+"Undo tree
+Plug 'sjl/gundo.vim'
+"File tree
+Plug 'scrooloose/nerdtree'
+"status line
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"misc
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/vim-easy-align'
+Plug 'Raimondi/delimitMate'
+Plug 'jtratner/vim-flavored-markdown'
+Plug 'MattesGroeger/vim-bookmarks'
+"fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'AndrewRadev/linediff.vim'
+Plug 'lfv89/vim-interestingwords'
+Plug 'sunaku/vim-dasht'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'Quramy/tsuquyomi'
+
+call plug#end()
 filetype plugin indent on
 
 " Enable syntax highlighting if available:
@@ -55,18 +63,12 @@ highlight DiffDelete ctermbg=52 guibg=52
 highlight DiffChange ctermbg=17 guibg=17
 highlight DiffText ctermbg=23 guibg=23
 
-" options for YouCompleteMe
-" use global ycm config, no confirmation
-let g:ycm_global_ycm_extra_conf = '/home/zed0/.vim/ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf = 0
-" don't complete inside strings or comments
-let g:ycm_complete_in_strings = 0
-let g:ycm_complete_in_comment = 0
-let g:ycm_min_num_of_chars_for_completion = 1
-" check for errors every 2000ms
-let g:ycm_allow_changing_updatetime = 0
-set updatetime=2000
-let g:ycm_autoclose_preview_window_after_completion = 1
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_complete_start_length = 1
+call deoplete#custom#set('ultisnips', 'rank', 1000) "improve ranking of ultisnips completion
+call deoplete#custom#set('clang', 'rank', 800)      "improve ranking of clang completion
+set completeopt-=preview                            "disable the preview window
+let g:deoplete#max_menu_width = 20
 
 " options for airline
 set laststatus=2
@@ -131,19 +133,19 @@ vmap <Enter> <Plug>(EasyAlign)
 
 " options for ultisnips
 let g:UltiSnipsEditSplit="vertical"
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsListSnippets="<c-e>"
 
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
-" better key bindings for UltiSnipsExpandTrigger
+" Prevent ultisnips interfering with deoplete
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+let g:clang_use_library = 1
+let g:clang_omnicppcomplete_compliance = 0
+let g:clang_make_default_keymappings = 0
 
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_html_checkers = ['htmlhint']
@@ -251,6 +253,8 @@ set mouse=a
 set guifont=10x20
 
 autocmd FileType python setlocal expandtab
+autocmd FileType robot  setlocal expandtab
+autocmd FileType robot  let b:SuperTabDisabled = 1
 
 augroup typescript
 	au!
@@ -287,17 +291,17 @@ set scrolloff=10
 
 " gp selects pasted text
 nnoremap gp `[v`]
-nnoremap <leader>l :nohlsearch <cr>
+nnoremap <leader>l :set hlsearch! <cr>
 nnoremap <leader>p :set paste! <cr>
 imap <C-p> <C-o>:set paste!<cr>
 " Map GoTo to <leader>d
 nnoremap <leader>d :YcmCompleter GoTo<cr>
 nnoremap <leader>sd :sp<CR>:YcmCompleter GoTo<cr>
 nnoremap <leader>td :tab :sp<CR>:YcmCompleter GoTo<cr>
-" switch from *.cpp to *.h and vice-versa
-nnoremap <leader>h :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-nnoremap <leader>sh :sp %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
-nnoremap <leader>th :tabe %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,<CR>
+" switch from *.cpp to *.h and *.js to *.cpp
+nnoremap <leader>h :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,:s,.js$,.Y123Y,:s,.html$,.js,:s,.Y123Y$,.html,<CR>
+nnoremap <leader>sh :sp %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,:s,.js$,.Y123Y,:s,.html$,.js,:s,.Y123Y$,.html,<CR>
+nnoremap <leader>th :tabe %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,:s,.js$,.Y123Y,:s,.html$,.js,:s,.Y123Y$,.html,<CR>
 
 if has('nvim')
 	nnoremap <C-W>t :sp<CR>:term<CR>
@@ -306,6 +310,7 @@ endif
 " FZF bindings
 map <leader>o :FZF<CR>
 map <leader>i :Ag 
+map <leader>u :call fzf#run({'source': map(range(1, bufnr('$')), 'bufname(v:val)'), 'sink': 'e', 'down': '30%'})<CR>
 
 " splitjoin bindings
 let g:splitjoin_split_mapping = ''

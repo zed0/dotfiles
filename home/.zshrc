@@ -60,6 +60,7 @@ compinit -u
 # don't auto correct lua to la:
 alias lua='nocorrect lua '
 alias tmux='tmux -2'
+alias vim=nvim
 #alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
 
 # make valgrind usable
@@ -79,5 +80,11 @@ man() {
 
 source $HOME/.homesick/repos/homeshick/homeshick.sh
 homeshick --quiet refresh #remind me if I haven't updated my dotfiles in a while.
+
+PATH="/home/zed0/perl5/bin${PATH+:}${PATH}"; export PATH;
+PERL5LIB="/home/zed0/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/zed0/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/zed0/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/zed0/perl5"; export PERL_MM_OPT;
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

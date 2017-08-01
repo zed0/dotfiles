@@ -55,6 +55,10 @@ def bad_lines(difflines):
 if __name__ == '__main__':
     import os, sys
     from distutils import util
+    # don't do anything if we're merging
+    if os.environ['HG_PARENT2']:
+        sys.exit(0)
+
     added = 0
     for filename, linenum, reason in bad_lines(os.popen('hg export tip')):
         print >> sys.stderr, ('%s, line %d: %s added' %

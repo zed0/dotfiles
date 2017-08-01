@@ -30,24 +30,36 @@ graphlog =
 record =
 hgext.crecord = /home/zed0/hg/crecord/crecord
 hgext.extdiff =
-remotebranches = /home/zed0/hg/remotebranches/hg_remotebranches.py
+#remotenames = /home/zed0/hg/hgremotenames/build/lib.linux-x86_64-2.7/remotenames.py
+#https://bitbucket.org/durin42/hg-remotebranches
+remotebranches = /home/zed0/hg/hg-remotebranches/hg_remotebranches.py
+hggit =
+evolve =
+absorb = /home/zed0/hg/hg-experimental/hgext3rd/absorb/
+smartlog = /home/zed0/hg/hg-experimental/hgext3rd/smartlog.py
+chistedit = /home/zed0/hg/hg-experimental/hgext3rd/chistedit.py
+githelp = /home/zed0/hg/hg-experimental/hgext3rd/githelp.py
+uncommit = /home/zed0/hg/hg-experimental/hgext3rd/uncommit.py
+convert =
 
 [pager]
 pager = LESS='FRSXQ' less
 quiet = True
-attend = annotate,blame,log,shelve,diff,gdiff
+attend = annotate,blame,log,shelve,diff,gdiff,smartlog,sl
 
 [extdiff]
 cmd.vimdiff =
 opts.vimdiff = -c "cnoreabbrev q :qa!"
 
 [alias]
-lg_base = log --color=always -G --template "{if(tags, label('custom.tag','[{tags}] '))}{if(bookmarks, label('custom.bookmark','[{bookmarks}] '))}{label('changeset.{phase}',node|short)} {desc|firstline} {label('custom.time',date|age)} {label('custom.author',author|person)}"
+lg_base = log --color=always -G --template "{if(tags, label('custom.tag','[{tags}] '))}{if(remotebranches, label('custom.tag','({remotebranches}) '))}{if(bookmarks, label('custom.bookmark','[{bookmarks}] '))}{label('changeset.{phase}',node|short)} {desc|firstline} {label('custom.time',date|age)} {label('custom.author',author|person)}"
 #lgs = log -l 30 --color=always -G --template "{if(tags, label('custom.tag','[{tags}] '))}{if(bookmarks, label('custom.bookmark','[{bookmarks}] '))}{label('custom.rev',node|short)} {label('custom.time',date|age)} {label('custom.author',author|person)}"
 # Compact log (removes empty lines): hg lg | grep '[^| ]' --color=never
 lg = !$HG lg_base "$@" | less -FRXS
 lgc = !$HG lg_base "$@" | grep '[^| ]' --color=never 2>/dev/null | less -FRXS
 lgr = !$HG lg_base | grep '[^| ]' --color=never 2>/dev/null | less -FRXS -j.5 -p$1
+
+sl=smartlog --template "{shortest(node)}  {author|user}  {bookmarks % '{ifeq(bookmark, current, label(\"yellow\", \" {bookmark}*\"), label(\"green\", \" {bookmark}\"))}'} {ifeq(branch, 'default', '', label(\"bold\", branch))}\n{desc|firstline}\n\n"
 
 blame = annotate --user --changeset --date -q
 
@@ -61,6 +73,8 @@ show-strip-backups = !HGPLAIN="true" ls -d -1 "$(hg root)/.hg/strip-backup/"* -t
 backout-commit = !$HG backout -r "$1" && $HG commit -m "Backed out $1"
 
 multi-backout = !$HG log -r "$1" -T "{node}\n" | xargs -n1 $HG backout-commit
+
+autobisect = !$HG status && $HG bisect --reset && $HG bisect --good "$1" && $HG bisect --bad "$2" && $HG bisect --command "$3"
 
 [color]
 custom.rev = red
@@ -83,3 +97,6 @@ prev_branchpoint($1) = last(ancestors($1) and branchpoint())
 
 # Get the commit after the last branch (i.e. what you rebase from if you do rebase -b $1).
 base($1) = last(limit(reverse(last(prev_branchpoint($1)::$1)),2))
+
+[remotenames]
+syncbookmarks = True
