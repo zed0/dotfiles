@@ -17,7 +17,7 @@ vimdiff.premerge = keep
 [extensions]
 # uncomment these lines to enable some popular extensions
 # (see "hg help extensions" for more info)
-#
+
 pager =
 strip =
 rebase =
@@ -28,19 +28,20 @@ purge =
 shelve =
 graphlog =
 record =
-hgext.crecord = /home/zed0/hg/crecord/crecord
 hgext.extdiff =
-#remotenames = /home/zed0/hg/hgremotenames/build/lib.linux-x86_64-2.7/remotenames.py
-#https://bitbucket.org/durin42/hg-remotebranches
+# https://bitbucket.org/durin42/hg-remotebranches
 remotebranches = /home/zed0/hg/hg-remotebranches/hg_remotebranches.py
-hggit =
+hggit = /home/zed0/hg/hg-git/hggit
 evolve =
 absorb = /home/zed0/hg/hg-experimental/hgext3rd/absorb/
 smartlog = /home/zed0/hg/hg-experimental/hgext3rd/smartlog.py
 chistedit = /home/zed0/hg/hg-experimental/hgext3rd/chistedit.py
 githelp = /home/zed0/hg/hg-experimental/hgext3rd/githelp.py
-uncommit = /home/zed0/hg/hg-experimental/hgext3rd/uncommit.py
+undo = /home/zed0/hg/hg-experimental/hgext3rd/undo.py
+inhibit = /home/zed0/hg/hg-experimental/hgext3rd/inhibit.py
+backups = /home/zed0/hg/hg-experimental/hgext3rd/backups.py
 convert =
+show =
 
 [pager]
 pager = LESS='FRSXQ' less
