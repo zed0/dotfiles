@@ -13,20 +13,13 @@ call plug#begin('~/.vim/bundle/')
 " Add Bundles here:
 "Syntax checking
 Plug 'vim-syntastic/Syntastic'
-Plug 'file:///home/zed0/.vim/localBundles/syntasticHtmlHint'
 Plug 'mtscout6/syntastic-local-eslint.vim'
+Plug 'gcorne/vim-sass-lint'
 
 "Code completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
-Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'] }
-Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
-
-Plug 'Rip-Rip/clang_complete'
-Plug 'rhysd/vim-clang-format'
-Plug 'tpope/vim-dispatch'
 
 "Undo tree
 Plug 'sjl/gundo.vim'
@@ -36,7 +29,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "misc
-Plug 'tpope/vim-fugitive'
 Plug 'junegunn/vim-easy-align'
 Plug 'Raimondi/delimitMate'
 Plug 'jtratner/vim-flavored-markdown'
@@ -46,10 +38,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'AndrewRadev/linediff.vim'
 Plug 'lfv89/vim-interestingwords'
-Plug 'sunaku/vim-dasht'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'Shougo/vimproc.vim'
 Plug 'Quramy/tsuquyomi'
 
 call plug#end()
@@ -148,9 +136,13 @@ let g:clang_omnicppcomplete_compliance = 0
 let g:clang_make_default_keymappings = 0
 
 let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_cpp_checkers = ['cppcheck']
 let g:syntastic_html_checkers = ['htmlhint']
 let g:tsuquyomi_disable_quickfix = 1
 let g:syntastic_typescript_checkers = ['tsuquyomi']
+let g:syntastic_sass_checkers=["sasslint"]
+let g:syntastic_scss_checkers=["sasslint"]
+
 
 " clang-format options
 "let g:clang_format#code_style = "file"
