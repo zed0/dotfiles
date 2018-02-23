@@ -49,6 +49,9 @@ def bad_lines(difflines):
             m = re.search(r'fit\(', line)
             if m:
                 yield filename, linenum, 'fit()'
+            m = re.search(r'Capture Page Screenshot', line)
+            if m:
+                yield filename, linenum, 'Capture Page Screenshot'
         if line and line[0] in ' +':
             linenum += 1
 
