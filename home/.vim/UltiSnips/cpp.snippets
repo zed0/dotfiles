@@ -97,7 +97,7 @@ std::cout << __FILE__ << ":" << __LINE__ << ": Value of $1: " << $1 << std::endl
 endsnippet
 
 snippet _line "Print line number" "snip.line+1" be
-std::cout << __FILE__ << ":" << __LINE__ << std::endl;
+std::cout << __FILE__ << ":" << __LINE__ << ": " << __PRETTY_FUNCTION__ << std::endl;
 endsnippet
 
 snippet _constructors "C++ constructors"
@@ -107,4 +107,26 @@ $1& operator=($1&&) = default;
 $1(const $1&) = default;
 $1& operator=(const $1&) = default;
 ~$1() = default;
+endsnippet
+
+snippet _starttime
+const auto start_time = std::chrono::system_clock::now();
+endsnippet
+
+snippet _endtime
+{
+	const auto end_time = std::chrono::system_clock::now();
+	const auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count();
+	std::ostringstream oss;
+	oss << std::setfill('0')          // set field fill character to '0'
+		<< (duration % 1000000000) / 1000000 // format seconds
+		<< ":"
+		<< std::setw(3)               // set width of milliseconds field
+		<< (duration % 1000000) / 1000       // format milliseconds
+		<< ":"
+		<< std::setw(3)               // set width of microseconds field
+		<< duration % 1000;                  // format microseconds
+	auto formatted(oss.str());
+	std::cout << __FILE__ << ":" << __LINE__ << ": " << formatted << std::endl;
+}
 endsnippet
