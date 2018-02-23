@@ -1,5 +1,10 @@
-function hg_bookmark_information {
-	BOOKMARK=$(hg id -B 2>/dev/null)
+function hg_bookmark_and_branch_information {
+	STATUS=$(hg id -b -B 2>/dev/null)
+
+	BRANCH=$(echo $STATUS | cut -f 1 -d ' ' 2>/dev/null)
+	echo -n $BRANCH
+
+	BOOKMARK=$(echo $STATUS | cut -f 1 -d ' ' --complement 2>/dev/null)
 	if [[ -n $BOOKMARK ]]
 	then
 		echo -n '|'$BOOKMARK
@@ -8,7 +13,7 @@ function hg_bookmark_information {
 
 function hg_prompt_information {
 	if [ $(in_hg) ]; then
-		_DISPLAY=$(hg_get_branch_name)$(hg_bookmark_information)
+		_DISPLAY=$(hg_bookmark_and_branch_information)
 		echo "$ZSH_PROMPT_BASE_COLOR$ZSH_THEME_HG_PROMPT_PREFIX\
 $ZSH_THEME_REPO_NAME_COLOR$_DISPLAY$ZSH_PROMPT_BASE_COLOR$ZSH_PROMPT_BASE_COLOR$(hg_dirty)$ZSH_THEME_HG_PROMPT_SUFFIX$ZSH_PROMPT_BASE_COLOR"
 		unset _DISPLAY
