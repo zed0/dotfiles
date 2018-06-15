@@ -46,7 +46,7 @@ show =
 [pager]
 pager = LESS='FRSXQ' less
 quiet = True
-attend = annotate,blame,log,shelve,diff,gdiff,smartlog,sl
+attend = annotate,blame,log,shelve,diff,gdiff,smartlog,sl,absorb
 
 [extdiff]
 cmd.vimdiff =

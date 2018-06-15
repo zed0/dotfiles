@@ -7,5 +7,5 @@
 [color]
 	ui = 1
 [core]
-	editor = vim
+	editor = nvim
 	pager = less -FRXS
