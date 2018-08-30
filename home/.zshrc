@@ -83,6 +83,7 @@ man() {
 }
 
 source $HOME/.homesick/repos/homeshick/homeshick.sh
+homeshick --quiet refresh 7 #remind me if I haven't updated my dotfiles in a while.
 
 PATH="/home/zed0/perl5/bin${PATH+:}${PATH}"; export PATH;
 PERL5LIB="/home/zed0/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"; export PERL5LIB;
