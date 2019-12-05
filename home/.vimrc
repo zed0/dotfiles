@@ -22,6 +22,18 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 
+" Coc plugins
+Plug 'iamcco/coc-angular', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-ultisnips', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tslint-plugin', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+
 "Autoformatting
 Plug 'Chiel92/vim-autoformat'
 Plug 'editorconfig/editorconfig-vim'
@@ -152,7 +164,11 @@ endfunction
 nnoremap <F2> :call NumberToggle()<cr>
 nnoremap <F3> :GundoToggle<CR>
 nnoremap <F5> :Autoformat<CR>
+" TODO: Look at using coc for autoformatting
 "nnoremap <F5> :call CocAction('format')<CR>
+
+" Update linting results faster (default is 4000)
+set updatetime=300
 
 " don't force a save when moving to another buffer
 set hidden
