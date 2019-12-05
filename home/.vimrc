@@ -14,6 +14,9 @@ call plug#begin('~/.vim/bundle/')
 
 " Add Bundles here:
 
+" Local config
+Plug 'embear/vim-localvimrc'
+
 " Code completion
 Plug 'w0rp/ale'
 Plug 'ervandew/supertab'
@@ -81,6 +84,8 @@ let g:ale_linters = {
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
 let g:ale_cpp_cquery_executable = '/home/zed0/src/cquery/build/release/bin/cquery'
+" Autoload local vimrcs
+let g:localvimrc_whitelist='.*'
 
 " options for airline
 set laststatus=2
