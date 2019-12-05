@@ -95,3 +95,4 @@ PERL_MM_OPT="INSTALL_BASE=/home/zed0/perl5"; export PERL_MM_OPT;
 EDITOR="vim"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source ~/.zshrc.machine_specific
