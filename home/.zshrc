@@ -45,7 +45,7 @@ plugins=(git mercurial ninja)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/home/zed0/.local/bin:/home/zed0/bin:/home/zed0/.npm-global:/home/zed0/.gem/ruby/1.8/bin:$PATH:/usr/local/bin:/usr/bin:/bin:/usr/games
+export PATH=/home/zed0/.local/bin:/home/zed0/bin:/home/zed0/.npm-global/bin:/home/zed0/.gem/ruby/1.8/bin:$PATH:/usr/local/bin:/usr/bin:/bin:/usr/games
 export CGCC_FORCE_COLOR=true
 export FZF_DEFAULT_COMMAND="ag -l -g \"\""
 
