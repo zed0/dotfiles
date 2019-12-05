@@ -1,15 +1,5 @@
 " vimrc by zed0
 
-" Use Vim defaults (much better!)
-if !has('nvim')
-	set nocompatible
-	set term=xterm
-	" Use 256 colours (all modern terminals support this)
-	set t_Co=256
-else
-	set inccommand=nosplit
-endif
-
 " Install vim-plug if it's not installed
 if empty(glob('~/.vim/autoload/plug.vim'))
 	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -73,24 +63,7 @@ set hidden
 " EasyAlign mappings:
 vmap <Enter> <Plug>(EasyAlign)
 
-" rotates between no line numbers, normal line numbers and relative line numbers:
-function! NumberToggle()
-	if(exists('&relativenumber'))
-		if(&number == 0 && &relativenumber == 0)
-			set number
-		elseif(&number == 1 && &relativenumber == 0)
-			set relativenumber
-		elseif(&relativenumber == 1)
-			if(&number == 1)
-				set number!
-			endif
-			set relativenumber!
-		endif
-	else
-		set nu!
-	endif
-endfunc
-
+" Default to relative line numbers with current linenumber shown
 set number
 set relativenumber
 
@@ -136,7 +109,7 @@ set linebreak
 set showbreak=>>
 " show tabs and trailing spaces and slightly darker than default colour
 set listchars=tab:->,trail:-
-autocmd VimEnter * highlight SpecialKeys ctermfg=30
+"autocmd VimEnter * highlight SpecialKeys ctermfg=30
 " show unprintable characters
 set list
 
@@ -147,25 +120,10 @@ if (has('wildignorecase'))
 	set wildignorecase
 endif
 
-autocmd FileType * set tabstop=4 | set noexpandtab
-set tabstop=4
+set tabstop=4 | set noexpandtab
 set shiftwidth=4
 set mouse=a
 set guifont=10x20
-
-autocmd FileType python setlocal expandtab
-autocmd FileType robot  setlocal expandtab
-"autocmd FileType robot  let b:SuperTabDisabled = 1
-
-augroup typescript
-	au!
-	au BufNewFile,BufRead *.ts setlocal filetype=typescript
-augroup END
-
-augroup markdown
-	au!
-	au BufNewFile,BufRead *.md,*.markdown setlocal filetype=ghmarkdown
-augroup END
 
 let mapleader=","
 
@@ -203,10 +161,6 @@ nmap <silent> <leader>rn <Plug>(coc-rename)
 nnoremap <leader>h :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,:s,.js$,.Y123Y,:s,.html$,.js,:s,.Y123Y$,.html,<CR>
 nnoremap <leader>sh :sp %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,:s,.js$,.Y123Y,:s,.html$,.js,:s,.Y123Y$,.html,<CR>
 nnoremap <leader>th :tabe %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,:s,.js$,.Y123Y,:s,.html$,.js,:s,.Y123Y$,.html,<CR>
-
-if has('nvim')
-	nnoremap <C-W>t :sp<CR>:term<CR>
-endif
 
 map <leader>o :Files<CR>
 map <leader>O :exec ':Files '.getcwd(-1)<CR>
