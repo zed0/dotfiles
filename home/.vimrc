@@ -35,9 +35,7 @@ Plug 'jtratner/vim-flavored-markdown'            " markdown syntax highlighting
 source ~/.vim/config/sjl/gundo.vim.vim           " undo tree
 source ~/.vim/config/AndrewRadev/linediff.vim    " diff lines from buffers
 Plug 'tpope/vim-abolish'                         " more intelligent regexes
-source ~/.vim/config/kshenoy/vim-signature.vim    " visual marks
-" TODO: Check if I actually want this
-source ~/.vim/config/Raimondi/delimitMate.vim    " add matching brackets
+source ~/.vim/config/kshenoy/vim-signature.vim   " visual marks
 
 
 " End of plugins
