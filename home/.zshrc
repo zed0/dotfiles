@@ -64,6 +64,7 @@ alias lua='nocorrect lua '
 alias tmux='tmux -2'
 alias vim=nvim
 #alias homeshick="$HOME/.homesick/repos/homeshick/home/.homeshick"
+alias cgdba='cgdb -- -ex "catch throw" -ex "run" --args'
 
 # make valgrind usable
 ulimit -c unlimited
