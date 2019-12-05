@@ -23,16 +23,20 @@ Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 
 " Coc plugins
-Plug 'iamcco/coc-angular', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-ultisnips', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tslint-plugin', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+
+let g:coc_global_extensions = [
+	\ 'coc-angular',
+	\ 'coc-tsserver',
+	\ 'coc-ultisnips',
+	\ 'coc-css',
+	\ 'coc-eslint',
+	\ 'coc-html',
+	\ 'coc-json',
+	\ 'coc-python',
+	\ 'coc-rls',
+	\ 'coc-tslint-plugin',
+	\ 'coc-tsserver'
+\ ]
 
 "Autoformatting
 Plug 'Chiel92/vim-autoformat'
