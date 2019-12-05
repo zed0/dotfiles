@@ -19,45 +19,29 @@ endif
 
 call plug#begin('~/.vim/bundle/')
 
-" Add Bundles here:
+" Add Bundles here
+" To disable plugins comment out the line and run `:PlugClean`
+" If the plugin has specific settings then move it to a separate file
 
 " Local config
-Plug 'embear/vim-localvimrc'
+source ~/.vim/config/embear/vim-localvimrc.vim
 
 " Code completion
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'ervandew/supertab'
-Plug 'SirVer/ultisnips'
-
-" Coc plugins
-
-let g:coc_global_extensions = [
-	\ 'coc-angular',
-	\ 'coc-tsserver',
-	\ 'coc-ultisnips',
-	\ 'coc-css',
-	\ 'coc-eslint',
-	\ 'coc-html',
-	\ 'coc-json',
-	\ 'coc-python',
-	\ 'coc-rls',
-	\ 'coc-tslint-plugin',
-	\ 'coc-tsserver'
-\ ]
+source ~/.vim/config/SirVer/ultisnips.vim
+source ~/.vim/config/neoclide/coc.nvim.vim
 
 "Autoformatting
-Plug 'Chiel92/vim-autoformat'
+source ~/.vim/config/Chiel92/vim-autoformat.vim
 Plug 'editorconfig/editorconfig-vim'
 
 "Rooter
-Plug 'airblade/vim-rooter'
+source ~/.vim/config/airblade/vim-rooter.vim
 
 "status line
-Plug 'vim-airline/vim-airline'
+source ~/.vim/config/vim-airline/vim-airline.vim
 
 "fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+source ~/.vim/config/junegunn/fzf.vim
 
 "VCS
 Plug 'ludovicchabant/vim-lawrencium'
@@ -65,10 +49,10 @@ Plug 'tpope/vim-fugitive'
 
 "misc
 Plug 'junegunn/vim-easy-align'
-Plug 'Raimondi/delimitMate'
+source ~/.vim/config/Raimondi/delimitMate.vim
 Plug 'jtratner/vim-flavored-markdown'
 Plug 'MattesGroeger/vim-bookmarks'
-Plug 'sjl/gundo.vim'
+source ~/.vim/config/sjl/gundo.vim.vim
 Plug 'AndrewRadev/linediff.vim'
 Plug 'tpope/vim-abolish'
 
@@ -86,60 +70,8 @@ highlight DiffText ctermbg=23 guibg=23
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
-" Autoload local vimrcs
-let g:localvimrc_whitelist='.*'
-
-" options for airline
-set laststatus=2
-let g:airline_extensions = ['tabline', 'branch']
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#show_tabs = 1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-
-"
-" get the colours working like I want (done with autocmd because otherwise
-" something overwrites it):
-" Should really use an after file
-set fillchars=vert:\ 
-autocmd VimEnter * highlight VertSplit cterm=NONE ctermbg=235
-autocmd VimEnter * highlight StatusLine cterm=NONE ctermbg=235
-autocmd VimEnter * highlight StatusLineNC cterm=NONE ctermbg=235 ctermfg=235
-autocmd VimEnter * highlight Error term=NONE ctermfg=124 ctermbg=88
-autocmd VimEnter * highlight ErrorMsg ctermbg=88
-autocmd VimEnter * highlight SpellBad ctermbg=88
-autocmd VimEnter * highlight todo term=NONE ctermfg=202 ctermbg=214
-autocmd VimEnter * highlight Search ctermbg=100 ctermfg=black
-autocmd VimEnter * highlight Pmenu ctermbg=DarkMagenta ctermfg=black
-autocmd VimEnter * highlight PmenuSel ctermbg=DarkMagenta ctermfg=gray
-autocmd VimEnter * highlight clear AlBl_active
-autocmd VimEnter * highlight link AlBl_active Al6
-autocmd VimEnter * highlight clear AlBl_inactive
-autocmd VimEnter * highlight link AlBl_inactive Al5
-
-" options for rooter
-let g:rooter_use_lcd = 1
-let g:rooter_silent_chdir = 1
-
-" options for gundo
-let g:gundo_focus_main_buffer = 0
-let g:gundo_preview_bottom = 1
-
-" opitons for delimitMate
-let delimitMate_expand_cr = 1
-let delimitMate_matchpairs = "(:),[:],{:}"
-let delimitMate_quotes = ""
-
 " EasyAlign mappings:
 vmap <Enter> <Plug>(EasyAlign)
-
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-
-" options for autoformat
-" same as default version but uses npm bin to get local version
-let g:formatdef_tsfmt = "'$(cd $(dirname '.bufname('%').') && npm bin)/tsfmt --stdin '.bufname('%')"
 
 " rotates between no line numbers, normal line numbers and relative line numbers:
 function! NumberToggle()
@@ -164,22 +96,11 @@ set relativenumber
 
 " Function key mappings:
 nnoremap <silent> <F1> :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
 nnoremap <F2> :call NumberToggle()<cr>
 nnoremap <F3> :GundoToggle<CR>
 nnoremap <F5> :Autoformat<CR>
 " TODO: Look at using coc for autoformatting
 "nnoremap <F5> :call CocAction('format')<CR>
-
-" Update linting results faster (default is 4000)
-set updatetime=300
 
 " don't force a save when moving to another buffer
 set hidden
@@ -286,11 +207,6 @@ nnoremap <leader>th :tabe %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,:s,.js$,.
 if has('nvim')
 	nnoremap <C-W>t :sp<CR>:term<CR>
 endif
-
-" FZF bindings
-" Global version of ag (we normally use the local working directory)
-command! -nargs=* Agg
-  \ call fzf#vim#ag(<q-args>, {'dir': getcwd(-1)})
 
 map <leader>o :Files<CR>
 map <leader>O :exec ':Files '.getcwd(-1)<CR>
