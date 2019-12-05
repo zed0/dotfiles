@@ -33,7 +33,7 @@ Plug 'tpope/vim-fugitive'                        " git support
 Plug 'junegunn/vim-easy-align'                   " align blocks based on characters
 Plug 'jtratner/vim-flavored-markdown'            " markdown syntax highlighting
 source ~/.vim/config/sjl/gundo.vim.vim           " undo tree
-Plug 'AndrewRadev/linediff.vim'                  " diff lines from buffers
+source ~/.vim/config/AndrewRadev/linediff.vim    " diff lines from buffers
 Plug 'tpope/vim-abolish'                         " more intelligent regexes
 " TODO: Check if I actually want this
 source ~/.vim/config/Raimondi/delimitMate.vim    " add matching brackets
@@ -44,17 +44,11 @@ Plug 'MattesGroeger/vim-bookmarks'               " bookmarks
 call plug#end()
 filetype plugin indent on
 
-" Enable syntax highlighting if available:
-syntax on
-colorscheme elflord
-highlight DiffAdd ctermbg=22 guibg=22
-highlight DiffDelete ctermbg=52 guibg=52
-highlight DiffChange ctermbg=17 guibg=17
-highlight DiffText ctermbg=23 guibg=23
-
 
 """ Standard settings
 
+syntax on                    " Enable syntax highlighting if available:
+colorscheme elflord          " Vibrant built in colorscheme
 set number                   " Default to relative line numbers with current linenumber shown
 set relativenumber
 set hidden                   " don't force a save when moving to another buffer (required for operations modifying multiple buffers like rename)
