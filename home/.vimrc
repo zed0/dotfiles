@@ -47,6 +47,7 @@ Plug 'jtratner/vim-flavored-markdown'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'sjl/gundo.vim'
 Plug 'AndrewRadev/linediff.vim'
+Plug 'tpope/vim-abolish'
 
 call plug#end()
 filetype plugin indent on
