@@ -18,7 +18,7 @@ call plug#begin('~/.vim/bundle/')
 Plug 'embear/vim-localvimrc'
 
 " Code completion
-Plug 'w0rp/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 
@@ -63,34 +63,12 @@ highlight DiffText ctermbg=23 guibg=23
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
-" options for ALE
-let g:ale_completion_enabled = 1
-set completeopt-=preview
-let g:ale_fix_on_save = 1
-let g:ale_lint_on_insert_leave = 1
-let g:ale_fixers = {
-\   'typescript': ['tslint', 'eslint', 'prettier'],
-\   'javascript': ['eslint'],
-\}
-"\   'cpp': ['cquery'],
-let g:ale_linters = {
-\   'typescript': ['tsserver', 'tslint', 'eslint', 'prettier'],
-\   'javascript': ['eslint'],
-\   'html': ['htmlhint', 'tidy'],
-\   'sass': ['sasslint'],
-\   'scss': ['sasslint'],
-\   'python': ['pyls', 'flake8', 'mypy', 'pylint'],
-\   'cpp': ['cquery'],
-\}
-let g:ale_set_loclist = 1
-let g:ale_set_quickfix = 0
-let g:ale_cpp_cquery_executable = '/home/zed0/src/cquery/build/release/bin/cquery'
 " Autoload local vimrcs
 let g:localvimrc_whitelist='.*'
 
 " options for airline
 set laststatus=2
-let g:airline_extensions = ['tabline', 'branch', 'ale']
+let g:airline_extensions = ['tabline', 'branch']
 let g:airline#extensions#tabline#enabled=1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#show_buffers = 0
@@ -115,10 +93,6 @@ autocmd VimEnter * highlight clear AlBl_active
 autocmd VimEnter * highlight link AlBl_active Al6
 autocmd VimEnter * highlight clear AlBl_inactive
 autocmd VimEnter * highlight link AlBl_inactive Al5
-autocmd VimEnter * highlight ALEErrorSign term=NONE ctermfg=9
-autocmd VimEnter * highlight ALEWarningSign term=NONE ctermfg=11
-autocmd VimEnter * highlight ALEInfoSign term=NONE ctermfg=12
-autocmd VimEnter * highlight ALEWarning ctermbg=88
 
 " options for rooter
 let g:rooter_use_lcd = 1
@@ -166,11 +140,19 @@ set number
 set relativenumber
 
 " Function key mappings:
-nnoremap <silent> <F1> :ALEHover<CR>
+nnoremap <silent> <F1> :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 nnoremap <F2> :call NumberToggle()<cr>
 nnoremap <F3> :GundoToggle<CR>
 nnoremap <F5> :Autoformat<CR>
+"nnoremap <F5> :call CocAction('format')<CR>
 
 " don't force a save when moving to another buffer
 set hidden
@@ -262,9 +244,13 @@ nnoremap <leader>l :set hlsearch! <cr>
 nnoremap <leader>p :set paste! <cr>
 imap <C-p> <C-o>:set paste!<cr>
 " Map GoTo to <leader>d
-nnoremap <leader>d :ALEGoToDefinition<CR>
-nnoremap <leader>sd :sp<CR>:ALEGoToDefinition<CR>
-nnoremap <leader>td :tab :sp<CR>:ALEGoToDefinition<CR>
+nmap <silent> <leader>d <Plug>(coc-definition)
+nmap <silent> <leader>sd :sp<CR><Plug>(coc-definition)
+nmap <silent> <leader>r <Plug>(coc-references)
+nmap <silent> <leader>f :CocFix<CR>
+nmap <silent> <leader>a <Plug>(coc-codeaction)
+xmap <leader>a <Plug>(coc-codeaction-selected)
+nmap <silent> <leader>rn <Plug>(coc-rename)
 " switch from *.cpp to *.h and *.js to *.cpp
 nnoremap <leader>h :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,:s,.js$,.Y123Y,:s,.html$,.js,:s,.Y123Y$,.html,<CR>
 nnoremap <leader>sh :sp %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,:s,.js$,.Y123Y,:s,.html$,.js,:s,.Y123Y$,.html,<CR>
