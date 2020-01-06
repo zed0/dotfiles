@@ -20,7 +20,7 @@
 		}
 	},
 	"eslint.filetypes": ["javascript", "typescript"],
-	"tslint.autoFixOnSave": true,
+	"eslint.autoFixOnSave": true,
 	"coc.source.file.ignorePatterns": ["docker-data"],
 	"typescript.preferences.importModuleSpecifier": "relative"
 }
