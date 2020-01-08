@@ -95,7 +95,7 @@ noremap H 0
 noremap L $
 
 " Function key mappings:
-nnoremap <silent> <F1> :call <SID>show_documentation()<CR>
+nnoremap <silent> <F1> :call Show_documentation()<CR>
 nnoremap <silent> <F2> :call NumberToggle()<cr>
 nnoremap <silent> <F3> :GundoToggle<CR>
 nnoremap <silent> <F5> :Autoformat<CR>
@@ -110,13 +110,13 @@ nnoremap <leader>p :set paste! <cr>
 nnoremap <leader>l :set hlsearch! <cr>
 
 " language server mappings
-nnoremap <silent> <leader>d <Plug>(coc-definition)
-nnoremap <silent> <leader>sd :sp<CR><Plug>(coc-definition)
-nnoremap <silent> <leader>r <Plug>(coc-references)
-nnoremap <silent> <leader>f :CocFix<CR>
-nnoremap <silent> <leader>rn <Plug>(coc-rename)
-nnoremap <silent> <leader>a <Plug>(coc-codeaction)
-xnoremap <silent> <leader>a <Plug>(coc-codeaction-selected)
+nmap <silent> <leader>d <Plug>(coc-definition)
+nmap <silent> <leader>sd :sp<CR><Plug>(coc-definition)
+nmap <silent> <leader>r <Plug>(coc-references)
+nmap <silent> <leader>f :CocFix<CR>
+nmap <silent> <leader>rn <Plug>(coc-rename)
+nmap <silent> <leader>a <Plug>(coc-codeaction)
+xmap <silent> <leader>a <Plug>(coc-codeaction-selected)
 
 " switch from *.cpp to *.h and *.js to *.cpp
 nnoremap <leader>h :e %:p:s,.h$,.X123X,:s,.cpp$,.h,:s,.X123X$,.cpp,:s,.js$,.Y123Y,:s,.html$,.js,:s,.Y123Y$,.html,<CR>
