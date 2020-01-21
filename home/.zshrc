@@ -52,6 +52,7 @@ export FZF_DEFAULT_COMMAND="ag -l -g \"\""
 fpath=(~/.zsh/completion $fpath)
 
 export ANSIBLE_NOCOWS=1
+export ANSIBLE_STDOUT_CALLBACK=debug
 
 # ssh autocomplete:
 zstyle -e ':completion::*:*:*:hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
