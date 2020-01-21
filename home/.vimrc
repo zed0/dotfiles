@@ -32,6 +32,7 @@ Plug 'ludovicchabant/vim-lawrencium'             " mercurial support
 Plug 'tpope/vim-fugitive'                        " git support
 Plug 'junegunn/vim-easy-align'                   " align blocks based on characters
 Plug 'jtratner/vim-flavored-markdown'            " markdown syntax highlighting
+Plug 'neoclide/jsonc.vim'                        " jsonc syntax highlighting
 source ~/.vim/config/sjl/gundo.vim.vim           " undo tree
 source ~/.vim/config/AndrewRadev/linediff.vim    " diff lines from buffers
 Plug 'tpope/vim-abolish'                         " more intelligent regexes
